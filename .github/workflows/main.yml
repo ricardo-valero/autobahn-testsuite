@@ -9,18 +9,13 @@ on:
   workflow_dispatch:
 
 env:
-  # hard-code /home/runner as neither $HOME nor ${{ env.HOME }} works!! hard-coding is "not recommended",
-  # and is not portable to self-hosted runners or non-Linux. I give a shit? ;)
-  # /home/runner is stable, official, and guaranteed on all GitHub-hosted Linux runners.
-  DOT_LOCAL: /home/runner/.local
   UV_CACHE_DIR: ${{ github.workspace }}/.uv-cache
-  PY27_PREFIX: /home/runner/.local/python2.7
-  PY27_VENV: ${{ github.workspace }}/.venvs/cpy27
   TOOLS_VENV: ${{ github.workspace }}/.venvs/cpy314
 
 jobs:
   # Python 3 port (migrate-python3): install with uv and smoke-test wstest.
-  # Independent of the frozen Python 2 `build` job below.
+  # The former Python 2 `build` job was removed with the py3 migration — the
+  # frozen py2 reference is the published Docker image, not master's CI.
   py3:
     runs-on: ubuntu-latest
     steps:
@@ -47,140 +42,6 @@ jobs:
       - name: Type check (advisory)
         continue-on-error: true
         run: uv run ty check
-
-  build:
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      - name: Install Just
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          curl --proto '=https' --tlsv1.2 -sSf https://just.systems/install.sh | bash -s -- --to ${HOME}/.local/bin
-          echo "$HOME/.local/bin" >> $GITHUB_PATH
-
-      - name: Verify Just
-        run: |
-          which just
-          just --version
-
-      # 🧩 Restore cached Python 2.7 build if available
-      - name: Cache local CPython 2.7 build
-        id: cache-python2
-        uses: actions/cache@v4
-        with:
-          path: ${{ env.PY27_PREFIX }}
-          key: cpy27-${{ runner.os }}
-          # key: cpy27-${{ runner.os }}-${{ hashFiles('justfile') }}
-          restore-keys: |
-            cpy27-${{ runner.os }}
-
-      # 🧩 Build only if cache was missed
-      - name: Build CPython 2.7 from source
-        if: steps.cache-python2.outputs.cache-hit != 'true'
-        # Build & install Python 2.7 and package dependencies (pip2 & virtualenv)
-        run: |
-          just install-python2-deps
-
-      # 🧩 Add CPython 2.7 to PATH & LD_LIBRARY_PATH (both cached and fresh builds)
-      - name: Add CPython 2.7 to PATH
-        run: |
-          echo "${{ env.PY27_PREFIX }}/bin" >> $GITHUB_PATH
-          echo "LD_LIBRARY_PATH=${{ env.PY27_PREFIX }}/lib" >> $GITHUB_ENV
-          echo "Added CPython shared libs to LD_LIBRARY_PATH"
-
-      # 🧩 Verify it works (both cached and fresh builds)
-      - name: Test CPython 2.7 binary
-        run: |
-          echo $PATH
-          echo $LD_LIBRARY_PATH
-          ldd ${{ env.PY27_PREFIX }}/bin/python2.7
-          ${{ env.PY27_PREFIX }}/bin/python2.7 --version
-          which python2
-          python2 --version
-
-      # 🧩 Save Python 2.7 cache after base deps installed
-      - name: Save local CPython 2.7 build (with base dependencies only)
-        if: steps.cache-python2.outputs.cache-hit != 'true'
-        uses: actions/cache/save@v4
-        with:
-          path: ${{ env.PY27_PREFIX }}
-          key: cpy27-${{ runner.os }}
-          # key: cpy27-venv-${{ runner.os }}-${{ hashFiles('justfile') }}
-
-      # # 🧩 Restore venv with (only) dependencies
-      # - name: Restore CPython 2.7 venv + uv cache with (only) dependencies
-      #   id: cache-venv
-      #   uses: actions/cache@v4
-      #   with:
-      #     path: |
-      #       ${{ env.PY27_VENV }}
-      #       ${{ env.UV_CACHE_DIR }}
-      #     key: cpy27-venv-${{ runner.os }}-${{ hashFiles('autobahntestsuite/requirements.txt') }}
-      #     restore-keys: |
-      #       cpy27-venv-${{ runner.os }}-
-
-      # # 🧩 Create venv if missing
-      # - name: Create venv
-      #   if: steps.cache-venv.outputs.cache-hit != 'true'
-      #   run: |
-      #     just create-venv
-
-      # # 🧩 Install package dependencies (only)
-      # # You may need to adjust your justfile slightly to have a "install-deps" target
-      # - name: Install dependencies into venv
-      #   if: steps.cache-venv.outputs.cache-hit != 'true'
-      #   run: |
-      #     just install-deps
-
-      # # 🧩 Save venv cache after deps installed
-      # - name: Save venv cache (dependencies only)
-      #   if: steps.cache-venv.outputs.cache-hit != 'true'
-      #   uses: actions/cache/save@v4
-      #   with:
-      #     path: ${{ env.PY27_VENV }}
-      #     key: cpy27-venv-${{ runner.os }}-${{ hashFiles('autobahntestsuite/requirements.txt') }}
-
-      # 🧩 Create venv
-      - name: Create venv
-        run: |
-          just create-venv
-
-      # 🧩 Install package dependencies (only)
-      - name: Install dependencies into venv
-        run: |
-          just install-deps
-
-      # 🧩 Install package into the venv
-      - name: Install package
-        run: |
-          just install
-
-      # 🧩 Build the package
-      - name: Build distribution
-        run: |
-          just build
-
-      # 🧩 Test installation
-      - name: Test installation
-        run: |
-          just test-version
-          just test-wstest
-
-      # 🧩 List package artifacts
-      - name: List package artifacts
-        run: |
-          ls -la autobahntestsuite/dist/
-
-      # 🧩 Upload build artifact
-      - name: Upload built package
-        uses: actions/upload-artifact@v4
-        with:
-          name: autobahntestsuite-dist
-          path: autobahntestsuite/dist/
 
   docs:
     runs-on: ubuntu-latest
