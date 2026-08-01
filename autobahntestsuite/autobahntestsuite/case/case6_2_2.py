@@ -18,13 +18,13 @@
 ##
 ###############################################################################
 
-from case import Case
+from autobahntestsuite.case.case import Case
 import binascii
 
 class Case6_2_2(Case):
 
-   PAYLOAD1 = "Hello-µ@ßöä"
-   PAYLOAD2 = "üàá-UTF-8!!"
+   PAYLOAD1 = "Hello-µ@ßöä".encode("utf8")
+   PAYLOAD2 = "üàá-UTF-8!!".encode("utf8")
 
    DESCRIPTION = """Send a valid UTF-8 text message in two fragments, fragmented on UTF-8 code point boundary.<br><br>MESSAGE FRAGMENT 1:<br>%s<br>%s<br><br>MESSAGE FRAGMENT 2:<br>%s<br>%s""" % (PAYLOAD1, binascii.b2a_hex(PAYLOAD1), PAYLOAD2, binascii.b2a_hex(PAYLOAD2))
 

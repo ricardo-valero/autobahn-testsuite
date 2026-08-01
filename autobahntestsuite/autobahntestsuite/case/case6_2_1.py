@@ -18,12 +18,12 @@
 ##
 ###############################################################################
 
-from case import Case
+from autobahntestsuite.case.case import Case
 import binascii
 
 class Case6_2_1(Case):
 
-   PAYLOAD = "Hello-µ@ßöäüàá-UTF-8!!"
+   PAYLOAD = "Hello-µ@ßöäüàá-UTF-8!!".encode("utf8")
 
    DESCRIPTION = """Send a valid UTF-8 text message in one fragment.<br><br>MESSAGE:<br>%s<br>%s""" % (PAYLOAD, binascii.b2a_hex(PAYLOAD))
 

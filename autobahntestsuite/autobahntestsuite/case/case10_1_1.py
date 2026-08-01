@@ -16,7 +16,7 @@
 ##
 ###############################################################################
 
-from case import Case
+from autobahntestsuite.case.case import Case
 
 class Case10_1_1(Case):
 
@@ -25,7 +25,7 @@ class Case10_1_1(Case):
    EXPECTATION = """Receive echo'ed text message (with payload as sent and transmitted frame counts as expected). Clean close with normal code."""
 
    def onOpen(self):
-      self.payload = "*" * 65536
+      self.payload = b"*" * 65536
       self.p.autoFragmentSize = 1300
       self.expected[Case.OK] = [("message", self.payload, False)]
       self.expectedClose = {"closedByMe": True, "closeCode": [self.p.CLOSE_STATUS_CODE_NORMAL], "requireClean": True}
@@ -36,7 +36,7 @@ class Case10_1_1(Case):
       Case.onConnectionLost(self, failedByMe)
       if self.p.connectionWasOpen:
          frames_expected = {}
-         frames_expected[0] = len(self.payload) / self.p.autoFragmentSize
+         frames_expected[0] = len(self.payload) // self.p.autoFragmentSize
          frames_expected[1] = 1 if len(self.payload) % self.p.autoFragmentSize > 0 else 0
          frames_got = {}
          frames_got[0] = self.p.txFrameStats[0]

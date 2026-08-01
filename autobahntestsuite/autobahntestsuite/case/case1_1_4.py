@@ -16,7 +16,7 @@
 ##
 ###############################################################################
 
-from case import Case
+from autobahntestsuite.case.case import Case
 
 class Case1_1_4(Case):
 
@@ -25,7 +25,7 @@ class Case1_1_4(Case):
    EXPECTATION = """Receive echo'ed text message (with payload as sent). Clean close with normal code."""
 
    def onOpen(self):
-      payload = "*" * 127
+      payload = b"*" * 127
       self.expected[Case.OK] = [("message", payload, False)]
       self.expectedClose = {"closedByMe":True,"closeCode":[self.p.CLOSE_STATUS_CODE_NORMAL],"requireClean":True}
       self.p.sendFrame(opcode = 1, payload = payload)

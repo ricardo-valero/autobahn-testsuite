@@ -93,7 +93,7 @@ class CaseSet:
       specCases = []
       for c in patterns:
          if c.find('*') >= 0:
-            s = c.replace('.', '\.').replace('*', '.*')
+            s = c.replace('.', '\\.').replace('*', '.*')
             p = re.compile(s)
             t = []
             for x in self.CasesIndices.keys():
@@ -111,7 +111,7 @@ class CaseSet:
       Return list of test cases that match against case patterns, minus exclude patterns.
       """
       specCases = self.resolveCasePatternList(spec["cases"])
-      if spec.has_key("exclude-cases"):
+      if "exclude-cases" in spec:
          excludeCases = self.resolveCasePatternList(spec["exclude-cases"])
       else:
          excludeCases = []
@@ -125,15 +125,15 @@ class CaseSet:
       Parses "exclude-agent-cases" from the spec into a list of pairs
       of agent pattern and case pattern list.
       """
-      if spec.has_key("exclude-agent-cases"):
+      if "exclude-agent-cases" in spec:
          ee = spec["exclude-agent-cases"]
          pats1 = []
          for e in ee:
-            s1 = "^" + e.replace('.', '\.').replace('*', '.*') + "$"
+            s1 = "^" + e.replace('.', '\\.').replace('*', '.*') + "$"
             p1 = re.compile(s1)
             pats2 = []
             for z in ee[e]:
-               s2 = "^" + z.replace('.', '\.').replace('*', '.*') + "$"
+               s2 = "^" + z.replace('.', '\\.').replace('*', '.*') + "$"
                p2 = re.compile(s2)
                pats2.append(p2)
             pats1.append((p1, pats2))

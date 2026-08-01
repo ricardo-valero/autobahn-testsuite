@@ -16,7 +16,7 @@
 ##
 ###############################################################################
 
-from case import Case
+from autobahntestsuite.case.case import Case
 
 class Case9_1_1(Case):
 
@@ -26,7 +26,7 @@ class Case9_1_1(Case):
 
    def init(self):
       self.DATALEN = 64 * 2**10
-      self.PAYLOAD = "BAsd7&jh23"
+      self.PAYLOAD = b"BAsd7&jh23"
       self.WAITSECS = 10
       self.reportTime = True
 

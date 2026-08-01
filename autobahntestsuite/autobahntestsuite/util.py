@@ -101,7 +101,7 @@ class Tabify:
       totalLen = 0
       flexIndicators = 0
       flexIndicatorIndex = None
-      for i in xrange(len(self._formats)):
+      for i in range(len(self._formats)):
          ffmt = self._formats[i][1:]
          if ffmt != "*":
             totalLen += int(ffmt)
@@ -120,7 +120,7 @@ class Tabify:
          raise Exception("cannot fit content in truncate length %d" % self._truncate)
 
       r = []
-      for i in xrange(len(self._formats)):
+      for i in range(len(self._formats)):
 
          if i == flexIndicatorIndex:
             N = self._truncate - totalLen
@@ -143,7 +143,7 @@ class Tabify:
          elif m == 'r':
             r.append(' ' * l + s)
          elif m == 'c':
-            c1 = l / 2
+            c1 = l // 2
             c2 = l - c1
             r.append(' ' * c1 + s + ' ' * c2)
          elif m == '+':
@@ -170,8 +170,8 @@ def envinfo():
 
    res['twisted'] = {'version': None, 'reactor': None}
    try:
-      import pkg_resources
-      res['twisted']['version'] = pkg_resources.require("Twisted")[0].version
+      import importlib.metadata
+      res['twisted']['version'] = importlib.metadata.version("Twisted")
    except:
       ## i.e. no setuptools installed ..
       pass
@@ -190,7 +190,7 @@ def envinfo():
    res['autobahn'] = {'version': autobahn.version,
                       'utf8Validator': v1,
                       'xorMasker': v2,
-                      'jsonProcessor': '%s-%s' % (autobahn.wamp.json_lib.__name__, autobahn.wamp.json_lib.__version__)}
+                      'jsonProcessor': '%s-%s' % (json.__name__, json.__version__)}
 
    res['autobahntestsuite'] = {'version': autobahntestsuite.version}
 
@@ -222,20 +222,20 @@ def pprint_timeago(time = False):
       if second_diff < 120:
          return "a minute ago"
       if second_diff < 3600:
-         return str( second_diff / 60 ) + " minutes ago"
+         return str( second_diff // 60 ) + " minutes ago"
       if second_diff < 7200:
          return "an hour ago"
       if second_diff < 86400:
-         return str( second_diff / 3600 ) + " hours ago"
+         return str( second_diff // 3600 ) + " hours ago"
    if day_diff == 1:
       return "Yesterday"
    if day_diff < 7:
       return str(day_diff) + " days ago"
    if day_diff < 31:
-      return str(day_diff/7) + " weeks ago"
+      return str(day_diff//7) + " weeks ago"
    if day_diff < 365:
-      return str(day_diff/30) + " months ago"
-   return str(day_diff/365) + " years ago"
+      return str(day_diff//30) + " months ago"
+   return str(day_diff//365) + " years ago"
 
 
 
@@ -265,14 +265,14 @@ def _createWssContext(self, options, factory):
    # Check if an OpenSSL library can be imported; abort if it's missing.
    try:
       from twisted.internet import ssl
-   except ImportError, e:
+   except ImportError as e:
       print ("You need OpenSSL/pyOpenSSL installed for secure WebSocket"
              "(wss)!")
       sys.exit(1)
 
    # Make sure the necessary options ('key' and 'cert') are available
    if options['key'] is None or options['cert'] is None:
-      print OPENSSL_HELP
+      print(OPENSSL_HELP)
       sys.exit(1)
 
    # Create the context factory based on the given key and certificate

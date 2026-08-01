@@ -16,7 +16,7 @@
 ##
 ###############################################################################
 
-from case import Case
+from autobahntestsuite.case.case import Case
 
 class Case5_17(Case):
 
@@ -27,8 +27,8 @@ class Case5_17(Case):
    def onOpen(self):
       self.expected[Case.OK] = []
       self.expectedClose = {"closedByMe":False,"closeCode":[self.p.CLOSE_STATUS_CODE_PROTOCOL_ERROR],"requireClean":False}
-      for i in xrange(0, 2):
-         self.p.sendFrame(opcode = 0, fin = True, payload = "fragment1")
-         self.p.sendFrame(opcode = 1, fin = False, payload = "fragment2")
-         self.p.sendFrame(opcode = 0, fin = True, payload = "fragment3")
+      for i in range(0, 2):
+         self.p.sendFrame(opcode = 0, fin = True, payload = b"fragment1")
+         self.p.sendFrame(opcode = 1, fin = False, payload = b"fragment2")
+         self.p.sendFrame(opcode = 0, fin = True, payload = b"fragment3")
       self.p.killAfter(1)

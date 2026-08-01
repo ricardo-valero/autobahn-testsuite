@@ -16,7 +16,7 @@
 ##
 ###############################################################################
 
-from case import Case
+from autobahntestsuite.case.case import Case
 
 class Case6_1_2(Case):
 
@@ -25,11 +25,11 @@ class Case6_1_2(Case):
    EXPECTATION = """A message is echo'ed back to us (with empty payload)."""
 
    def onOpen(self):
-      self.expected[Case.OK] = [("message", "", False)]
+      self.expected[Case.OK] = [("message", b"", False)]
       self.expectedClose = {"closedByMe": True,
                             "closeCode": [self.p.CLOSE_STATUS_CODE_NORMAL],
                             "requireClean": True}
-      self.p.sendFrame(opcode = 1, fin = False, payload = "")
-      self.p.sendFrame(opcode = 0, fin = False, payload = "")
-      self.p.sendFrame(opcode = 0, fin = True, payload = "")
+      self.p.sendFrame(opcode = 1, fin = False, payload = b"")
+      self.p.sendFrame(opcode = 0, fin = False, payload = b"")
+      self.p.sendFrame(opcode = 0, fin = True, payload = b"")
       self.p.closeAfter(1)

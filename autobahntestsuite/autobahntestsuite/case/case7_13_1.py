@@ -16,7 +16,7 @@
 ##
 ###############################################################################
 
-from case import Case
+from autobahntestsuite.case.case import Case
 
 
 class Case7_13_1(Case):
@@ -38,7 +38,7 @@ class Case7_13_1(Case):
       self.result = "Actual events are undefined by the spec."
    
    def onOpen(self):
-      self.payload = '\xce\xba\xe1\xbd\xb9\xcf\x83\xce\xbc\xce\xb5\xed\xa0\x80\x65\x64\x69\x74\x65\x64'
+      self.payload = b'\xce\xba\xe1\xbd\xb9\xcf\x83\xce\xbc\xce\xb5\xed\xa0\x80\x65\x64\x69\x74\x65\x64'
       self.expected[Case.OK] = []      
       self.expectedClose = {"closedByMe":True,"closeCode":[self.p.CLOSE_STATUS_CODE_NORMAL,self.code,self.p.CLOSE_STATUS_CODE_PROTOCOL_ERROR],"requireClean":False}
       self.p.sendCloseFrame(self.code)

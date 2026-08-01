@@ -18,12 +18,12 @@
 ##
 ###############################################################################
 
-from case import Case
+from autobahntestsuite.case.case import Case
 import binascii
 
 class Case6_2_3(Case):
 
-   PAYLOAD = "Hello-µ@ßöäüàá-UTF-8!!"
+   PAYLOAD = "Hello-µ@ßöäüàá-UTF-8!!".encode("utf8")
 
    DESCRIPTION = """Send a valid UTF-8 text message in fragments of 1 octet, resulting in frames ending on positions which are not code point ends.<br><br>MESSAGE:<br>%s<br>%s""" % (PAYLOAD, binascii.b2a_hex(PAYLOAD))
 

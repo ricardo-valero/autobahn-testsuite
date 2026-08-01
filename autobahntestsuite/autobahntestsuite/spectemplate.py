@@ -18,9 +18,6 @@
 
 __all__= ("SPEC_FUZZINGSERVER",
           "SPEC_FUZZINGCLIENT",
-          "SPEC_FUZZINGWAMPSERVER",
-          "SPEC_FUZZINGWAMPCLIENT",
-          "SPEC_WSPERFCONTROL",
           "SPEC_MASSCONNECT",)
 
 
@@ -45,76 +42,6 @@ SPEC_FUZZINGCLIENT = """
    "cases": ["*"],
    "exclude-cases": [],
    "exclude-agent-cases": {}
-}
-"""
-
-SPEC_FUZZINGWAMPSERVER = """
-{
-   "url": "ws://127.0.0.1:9001",
-   "options": {},
-   "outdir": "./reports/wampclients",
-   "cases": ["*"],
-   "exclude-cases": [],
-   "exclude-agent-cases": {}
-}
-"""
-
-SPEC_FUZZINGWAMPCLIENT = """
-{
-   "options": {},
-   "outdir": "./reports/wampservers",
-
-   "testees": [
-                  {
-                     "name": "AutobahnPython",
-                     "url": "ws://127.0.0.1:9001",
-                     "options": {},
-                     "auth": null
-                  }
-               ],
-
-   "cases": ["*"],
-   "exclude-cases": [],
-   "exclude-agent-cases": {}
-}
-"""
-
-SPEC_WSPERFCONTROL = """
-{
-   "options": {
-      "debug": false
-   },
-   "servers":  [
-                  {
-                     "name": "AutobahnPython",
-                     "uri": "ws://127.0.0.1:9000",
-                     "desc": "Autobahn WebSocket Python on localhost"
-                  }
-               ],
-   "testsets": [
-      {
-         "mode": "echo",
-         "options": {
-            "outfile": "report_echo.txt",
-            "digits": 0,
-            "sep": "\\t",
-            "rtts": false,
-            "quantile_count": 10,
-
-            "count": 1000,
-            "timeout": 100000,
-            "binary": false,
-            "sync": true,
-            "verify": false
-         },
-         "cases": [
-                     {"size": 0},
-                     {"size": 64},
-                     {"size": 1024},
-                     {"count": 100, "size": 524288}
-                  ]
-      }
-   ]
 }
 """
 

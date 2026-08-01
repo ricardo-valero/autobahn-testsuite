@@ -16,7 +16,7 @@
 ##
 ###############################################################################
 
-from case import Case
+from autobahntestsuite.case.case import Case
 
 ## list of (payload length, message count, case timeout)
 tests = [(0, 1000, 60),
@@ -45,9 +45,9 @@ def onOpen(self):
 
 def sendOne(self):
    if self.BINARY:
-      self.p.sendFrame(opcode = 2, payload = "\xfe", payload_len = self.LEN)
+      self.p.sendFrame(opcode = 2, payload = b"\xfe", payload_len = self.LEN)
    else:
-      self.p.sendFrame(opcode = 1, payload = "*", payload_len = self.LEN)
+      self.p.sendFrame(opcode = 1, payload = b"*", payload_len = self.LEN)
    self.count += 1
 
 def onMessage(self, msg, binary):
@@ -76,7 +76,7 @@ for b in [False, True]:
       DESCRIPTION = """Send %d %s messages of payload size %d to measure implementation/network RTT (round trip time) / latency.""" % (s[1], mt, s[0])
       EXPECTATION = """Receive echo'ed %s messages (with payload as sent). Timeout case after %d secs.""" % (mt, s[2])
       C = type(cc % i,
-                (object, Case, ),
+                (Case, ),
                 {"LEN": s[0],
                  "COUNT": s[1],
                  "WAITSECS": s[2],

@@ -40,7 +40,8 @@
             packages = [
               pkgs.just
               pkgs.uv
-              python2
+              pkgs.python312   # Python 3 runtime for the migrate-python3 port
+              python2          # frozen py2 toolchain (retired in a follow-up change)
               pkgs.pkg-config
               pkgs.libffi
               pkgs.openssl_1_1

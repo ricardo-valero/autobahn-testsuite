@@ -18,7 +18,7 @@
 
 __all__ = ['startClient', 'startServer']
 
-import pkg_resources
+import importlib.resources
 import os, socket, binascii
 
 from twisted.internet import reactor
@@ -51,7 +51,8 @@ class BroadcastServerFactory(WebSocketServerFactory):
    protocol = BroadcastServerProtocol
 
    def __init__(self, url, debug = False):
-      WebSocketServerFactory.__init__(self, url, debug = debug, debugCodePaths = debug)
+      self.debug = debug
+      WebSocketServerFactory.__init__(self, url)
 
    def startFactory(self):
       self.clients = set()
@@ -70,7 +71,7 @@ class BroadcastServerFactory(WebSocketServerFactory):
 
    def tick(self):
       self.tickcount += 1
-      self.broadcast("tick %d" % self.tickcount)
+      self.broadcast(("tick %d" % self.tickcount).encode('utf8'))
       reactor.callLater(1, self.tick)
 
 
@@ -78,7 +79,7 @@ class BroadcastServerFactory(WebSocketServerFactory):
 class BroadcastClientProtocol(WebSocketClientProtocol):
 
    def sendHello(self):
-      self.sendMessage("hello from %s[%d]" % (socket.gethostname(), os.getpid()))
+      self.sendMessage(("hello from %s[%d]" % (socket.gethostname(), os.getpid())).encode('utf8'))
       reactor.callLater(2, self.sendHello)
 
    def onOpen(self):
@@ -86,9 +87,9 @@ class BroadcastClientProtocol(WebSocketClientProtocol):
 
    def onMessage(self, payload, isBinary):
       if isBinary:
-         print "received: ", binascii.b2a_hex(payload)
+         print("received: ", binascii.b2a_hex(payload))
       else:
-         print "received: ", payload
+         print("received: ", payload)
 
 
 
@@ -97,7 +98,8 @@ class BroadcastClientFactory(WebSocketClientFactory):
    protocol = BroadcastClientProtocol
 
    def __init__(self, url, debug = False):
-      WebSocketClientFactory.__init__(self, url, debug = debug, debugCodePaths = debug)
+      self.debug = debug
+      WebSocketClientFactory.__init__(self, url)
 
 
 
@@ -111,13 +113,14 @@ def startClient(wsuri, debug = False):
 def startServer(wsuri, webport, sslKey = None, sslCert = None, debug = False):
    factory = BroadcastServerFactory(wsuri, debug)
    if sslKey and sslCert:
+      from twisted.internet import ssl
       sslContext = ssl.DefaultOpenSSLContextFactory(sslKey, sslCert)
    else:
       sslContext = None
    listenWS(factory, sslContext)
 
    if webport:
-      webdir = File(pkg_resources.resource_filename("autobahntestsuite", "web/broadcastserver"))
+      webdir = File(str(importlib.resources.files("autobahntestsuite") / "web/broadcastserver"))
       web = Site(webdir)
       reactor.listenTCP(webport, web)
 

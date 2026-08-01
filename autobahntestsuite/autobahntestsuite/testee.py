@@ -19,6 +19,8 @@
 __all__ = ['startClient', 'startServer']
 
 
+import importlib.resources
+
 from twisted.internet import reactor
 from twisted.web.server import Site
 from twisted.web.static import File
@@ -78,7 +80,8 @@ class TesteeServerFactory(WebSocketServerFactory):
          server = ident
       else:
          server = "AutobahnPython/%s" % autobahn.version
-      WebSocketServerFactory.__init__(self, url, debug = debug, debugCodePaths = debug, server = server)
+      self.debug = debug
+      WebSocketServerFactory.__init__(self, url, server = server)
       self.setProtocolOptions(failByDrop = False) # spec conformance
       #self.setProtocolOptions(failByDrop = True) # needed for streaming mode
       #self.setProtocolOptions(utf8validateIncoming = False)
@@ -93,9 +96,6 @@ class TesteeServerFactory(WebSocketServerFactory):
             elif isinstance(offer, PerMessageBzip2Offer):
                return PerMessageBzip2OfferAccept(offer)
 
-            elif isinstance(offer, PerMessageSnappyOffer):
-               return PerMessageSnappyOfferAccept(offer)
-
       self.setProtocolOptions(perMessageCompressionAccept = accept)
 
 
@@ -104,14 +104,14 @@ class TesteeClientProtocol(WebSocketClientProtocol):
 
    def onOpen(self):
       if self.factory.endCaseId is None:
-         print "Getting case count .."
+         print("Getting case count ..")
       elif self.factory.currentCaseId <= self.factory.endCaseId:
-         print "Running test case %d/%d as user agent %s on peer %s" % (self.factory.currentCaseId, self.factory.endCaseId, self.factory.agent, self.peer)
+         print("Running test case %d/%d as user agent %s on peer %s" % (self.factory.currentCaseId, self.factory.endCaseId, self.factory.agent, self.peer))
 
    def onMessage(self, msg, binary):
       if self.factory.endCaseId is None:
          self.factory.endCaseId = int(msg)
-         print "Ok, will run %d cases" % self.factory.endCaseId
+         print("Ok, will run %d cases" % self.factory.endCaseId)
       else:
          self.sendMessage(msg, binary)
 
@@ -122,7 +122,8 @@ class TesteeClientFactory(WebSocketClientFactory):
    protocol = TesteeClientProtocol
 
    def __init__(self, url, debug = False, ident = None):
-      WebSocketClientFactory.__init__(self, url, useragent = ident, debug = debug, debugCodePaths = debug)
+      self.debug = debug
+      WebSocketClientFactory.__init__(self, url, useragent = ident)
       self.setProtocolOptions(failByDrop = False) # spec conformance
 
       ## enable permessage-XXX compression extensions
@@ -137,9 +138,6 @@ class TesteeClientFactory(WebSocketClientFactory):
 
          elif isinstance(response, PerMessageBzip2Response):
             return PerMessageBzip2ResponseAccept(response)
-
-         elif isinstance(response, PerMessageSnappyResponse):
-            return PerMessageSnappyResponseAccept(response)
 
       self.setProtocolOptions(perMessageCompressionAccept = accept)
 
@@ -167,7 +165,7 @@ class TesteeClientFactory(WebSocketClientFactory):
          reactor.stop()
 
    def clientConnectionFailed(self, connector, reason):
-      print "Connection to %s failed (%s)" % (self.url, reason.getErrorMessage())
+      print("Connection to %s failed (%s)" % (self.url, reason.getErrorMessage()))
       reactor.stop()
 
 
@@ -182,13 +180,14 @@ def startClient(wsuri, ident = None, debug = False):
 def startServer(wsuri, webport = None, sslKey = None, sslCert = None, debug = False):
    factory = TesteeServerFactory(wsuri, debug)
    if sslKey and sslCert:
+      from twisted.internet import ssl
       sslContext = ssl.DefaultOpenSSLContextFactory(sslKey, sslCert)
    else:
       sslContext = None
    listenWS(factory, sslContext)
 
    if webport:
-      webdir = File(pkg_resources.resource_filename("autobahntestsuite", "web/echoserver"))
+      webdir = File(str(importlib.resources.files("autobahntestsuite") / "web/echoserver"))
       web = Site(webdir)
       reactor.listenTCP(webport, web)
 

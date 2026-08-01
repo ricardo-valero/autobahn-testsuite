@@ -16,7 +16,7 @@
 ##
 ###############################################################################
 
-from case import Case
+from autobahntestsuite.case.case import Case
 
 class Case7_1_6(Case):
 
@@ -27,7 +27,7 @@ class Case7_1_6(Case):
    def init(self):
       self.suppressClose = True
       self.DATALEN = 256 * 2**10
-      self.PAYLOAD = "BAsd7&jh23"
+      self.PAYLOAD = b"BAsd7&jh23"
 
    def onConnectionLost(self, failedByMe):
       Case.onConnectionLost(self, failedByMe)
@@ -44,7 +44,7 @@ class Case7_1_6(Case):
       self.behaviorClose = Case.INFORMATIONAL
       
    def onOpen(self):
-      payload = "Hello World!"
+      payload = b"Hello World!"
       self.expected[Case.OK] = [("message", payload, False)] 
       self.expected[Case.NON_STRICT] = []      
       self.expectedClose = {"closedByMe":True,"closeCode":[self.p.CLOSE_STATUS_CODE_NORMAL],"requireClean":True}

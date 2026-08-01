@@ -16,7 +16,7 @@
 ##
 ###############################################################################
 
-from case2_10 import *
+from autobahntestsuite.case.case2_10 import *
 
 class Case2_11(Case2_10):
 

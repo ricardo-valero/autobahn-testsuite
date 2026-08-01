@@ -16,7 +16,7 @@
 ##
 ###############################################################################
 
-from case import Case
+from autobahntestsuite.case.case import Case
 
 class Case2_1(Case):
 
@@ -25,7 +25,7 @@ class Case2_1(Case):
    EXPECTATION = """Pong (with empty payload) is sent in reply to Ping. Clean close with normal code."""
 
    def onOpen(self):
-      self.expected[Case.OK] = [("pong", "")]
+      self.expected[Case.OK] = [("pong", b"")]
       self.expectedClose = {"closedByMe":True,"closeCode":[self.p.CLOSE_STATUS_CODE_NORMAL],"requireClean":True}
       self.p.sendFrame(opcode = 9)
       self.p.closeAfter(1)

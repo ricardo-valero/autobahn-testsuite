@@ -22,9 +22,9 @@ __all__ = ['Case12_X_X',
            'Case13_X_X_CaseSubCategories',
            ]
 
-import copy, os, pkg_resources, hashlib, binascii
+import copy, os, importlib.resources, hashlib, binascii
 
-from case import Case
+from autobahntestsuite.case.case import Case
 from autobahn.websocket.compress import *
 
 
@@ -121,8 +121,8 @@ def init(self):
    self.payloadRXPtr = 0
    self.payloadTXPtr = 0
 
-   fn = pkg_resources.resource_filename("autobahntestsuite", "testdata/%s" % self.TESTDATA['file'])
-   self.testData = open(fn, 'rb').read()
+   fn = str(importlib.resources.files("autobahntestsuite") / ("testdata/%s" % self.TESTDATA['file']))
+   self.testData = open(fn, b'rb').read()
    self.testDataLen = len(self.testData)
 
 
@@ -222,7 +222,7 @@ j = 1
 for td in WS_COMPRESSION_TESTDATA_KEYS:
 
    isBinary = WS_COMPRESSION_TESTDATA[td]["binary"]
-   fn = pkg_resources.resource_filename("autobahntestsuite", "testdata/%s" % WS_COMPRESSION_TESTDATA[td]['file'])
+   fn = str(importlib.resources.files("autobahntestsuite") / ("testdata/%s" % WS_COMPRESSION_TESTDATA[td]['file']))
    fileSize = os.path.getsize(fn)
 
    Case12_X_X_CaseSubCategories['12.%d' % j] = WS_COMPRESSION_TESTDATA[td]["desc"] + (" (%s, %s bytes)" % ("binary" if isBinary else "utf8", fileSize))
@@ -233,7 +233,7 @@ for td in WS_COMPRESSION_TESTDATA_KEYS:
       DESCRIPTION = """Send %d compressed messages each of payload size %d, auto-fragment to %s octets. Use default permessage-deflate offer.""" % (s[1], s[0], s[3])
       EXPECTATION = """Receive echo'ed messages (with payload as sent). Timeout case after %d secs.""" % (s[2])
       C = type(cc,
-                (object, Case, ),
+                (Case, ),
                 {"LEN": s[0],
                  "COUNT": s[1],
                  "WAITSECS": s[2],
@@ -277,8 +277,8 @@ def accept2(self, offers):
    """
    for offer in offers:
       if isinstance(offer, PerMessageDeflateOffer):
-         if offer.acceptNoContextTakeover:
-            return PerMessageDeflateOfferAccept(offer, requestNoContextTakeover = True)
+         if offer.accept_no_context_takeover:
+            return PerMessageDeflateOfferAccept(offer, request_no_context_takeover = True)
 
 def accept3(self, offers):
    """
@@ -286,8 +286,8 @@ def accept3(self, offers):
    """
    for offer in offers:
       if isinstance(offer, PerMessageDeflateOffer):
-         if offer.acceptMaxWindowBits:
-            return PerMessageDeflateOfferAccept(offer, requestMaxWindowBits = 9)
+         if offer.accept_max_window_bits:
+            return PerMessageDeflateOfferAccept(offer, request_max_window_bits = 9)
 
 def accept4(self, offers):
    """
@@ -295,8 +295,8 @@ def accept4(self, offers):
    """
    for offer in offers:
       if isinstance(offer, PerMessageDeflateOffer):
-         if offer.acceptMaxWindowBits:
-            return PerMessageDeflateOfferAccept(offer, requestMaxWindowBits = 15)
+         if offer.accept_max_window_bits:
+            return PerMessageDeflateOfferAccept(offer, request_max_window_bits = 15)
 
 def accept5(self, offers):
    """
@@ -304,8 +304,8 @@ def accept5(self, offers):
    """
    for offer in offers:
       if isinstance(offer, PerMessageDeflateOffer):
-         if offer.acceptNoContextTakeover and offer.acceptMaxWindowBits:
-            return PerMessageDeflateOfferAccept(offer, requestMaxWindowBits = 9, requestNoContextTakeover = True)
+         if offer.accept_no_context_takeover and offer.accept_max_window_bits:
+            return PerMessageDeflateOfferAccept(offer, request_max_window_bits = 9, request_no_context_takeover = True)
 
 def accept6(self, offers):
    """
@@ -313,8 +313,8 @@ def accept6(self, offers):
    """
    for offer in offers:
       if isinstance(offer, PerMessageDeflateOffer):
-         if offer.acceptNoContextTakeover and offer.acceptMaxWindowBits:
-            return PerMessageDeflateOfferAccept(offer, requestMaxWindowBits = 15, requestNoContextTakeover = True)
+         if offer.accept_no_context_takeover and offer.accept_max_window_bits:
+            return PerMessageDeflateOfferAccept(offer, request_max_window_bits = 15, request_no_context_takeover = True)
 
 def accept7(self, offers):
    """
@@ -333,12 +333,12 @@ def accept7(self, offers):
 
 DEFLATE_PARAMS = [
    (accept1, [PerMessageDeflateOffer()]),
-   (accept2, [PerMessageDeflateOffer(requestNoContextTakeover = True, requestMaxWindowBits = 0)]),
-   (accept3, [PerMessageDeflateOffer(requestNoContextTakeover = False, requestMaxWindowBits = 9)]),
-   (accept4, [PerMessageDeflateOffer(requestNoContextTakeover = False, requestMaxWindowBits = 15)]),
-   (accept5, [PerMessageDeflateOffer(requestNoContextTakeover = True, requestMaxWindowBits = 9)]),
-   (accept6, [PerMessageDeflateOffer(requestNoContextTakeover = True, requestMaxWindowBits = 15)]),
-   (accept7, [PerMessageDeflateOffer(requestNoContextTakeover = True, requestMaxWindowBits = 9), PerMessageDeflateOffer(requestNoContextTakeover = True), PerMessageDeflateOffer()])
+   (accept2, [PerMessageDeflateOffer(request_no_context_takeover = True, request_max_window_bits = 0)]),
+   (accept3, [PerMessageDeflateOffer(request_no_context_takeover = False, request_max_window_bits = 9)]),
+   (accept4, [PerMessageDeflateOffer(request_no_context_takeover = False, request_max_window_bits = 15)]),
+   (accept5, [PerMessageDeflateOffer(request_no_context_takeover = True, request_max_window_bits = 9)]),
+   (accept6, [PerMessageDeflateOffer(request_no_context_takeover = True, request_max_window_bits = 15)]),
+   (accept7, [PerMessageDeflateOffer(request_no_context_takeover = True, request_max_window_bits = 9), PerMessageDeflateOffer(request_no_context_takeover = True), PerMessageDeflateOffer()])
 ]
 
 
@@ -352,10 +352,10 @@ for dp in DEFLATE_PARAMS:
    co = dp[1]
 
    isBinary = TEST_DATA["binary"]
-   fn = pkg_resources.resource_filename("autobahntestsuite", "testdata/%s" % TEST_DATA['file'])
+   fn = str(importlib.resources.files("autobahntestsuite") / ("testdata/%s" % TEST_DATA['file']))
    fileSize = os.path.getsize(fn)
 
-   co_desc = "client offers (requestNoContextTakeover, requestMaxWindowBits): {0}".format([(x.requestNoContextTakeover, x.requestMaxWindowBits) for x in co])
+   co_desc = "client offers (requestNoContextTakeover, requestMaxWindowBits): {0}".format([(x.request_no_context_takeover, x.request_max_window_bits) for x in co])
    sa_desc = sa.__doc__.strip()
 
    Case13_X_X_CaseSubCategories['13.%d' % j] = TEST_DATA["desc"] + (" (%s, %s bytes)" % ("binary" if isBinary else "utf8", fileSize)) + " - " + co_desc + " / " + sa_desc
@@ -366,7 +366,7 @@ for dp in DEFLATE_PARAMS:
       DESCRIPTION = """Send %d compressed messages each of payload size %d, auto-fragment to %s octets. Use permessage-deflate %s""" % (s[1], s[0], s[3], co_desc)
       EXPECTATION = """Receive echo'ed messages (with payload as sent). Timeout case after %d secs.""" % (s[2])
       C = type(cc,
-                (object, Case, ),
+                (Case, ),
                 {"LEN": s[0],
                  "COUNT": s[1],
                  "WAITSECS": s[2],

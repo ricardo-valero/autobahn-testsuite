@@ -365,6 +365,30 @@ test-wstest:
     fi
 
 # -----------------------------------------------------------------------------
+# -- Python 3 recipes (migrate-python3)
+# -----------------------------------------------------------------------------
+
+# Install Python 3 package and dev tools with uv
+install-py3:
+    #!/usr/bin/env bash
+    set -e
+    uv sync --group dev
+    echo ""
+    uv run python --version
+
+# Test the Python 3 wstest (version and help)
+test-wstest-py3:
+    #!/usr/bin/env bash
+    set -e
+    uv run wstest --autobahnversion
+    uv run wstest --help
+
+# Type-check Python 3 sources with ty (advisory)
+ty-check:
+    #!/usr/bin/env bash
+    uv run ty check
+
+# -----------------------------------------------------------------------------
 # -- Docker image recipes
 # -----------------------------------------------------------------------------
 

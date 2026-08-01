@@ -39,7 +39,8 @@ class EchoServerFactory(WebSocketServerFactory):
    protocol = EchoServerProtocol
 
    def __init__(self, url, debug = False):
-      WebSocketServerFactory.__init__(self, url, debug = debug, debugCodePaths = debug)
+      self.debug = debug
+      WebSocketServerFactory.__init__(self, url)
 
 
 
@@ -55,7 +56,8 @@ class EchoClientFactory(WebSocketClientFactory):
    protocol = EchoClientProtocol
 
    def __init__(self, url, debug = False):
-      WebSocketClientFactory.__init__(self, url, debug = debug, debugCodePaths = debug)
+      self.debug = debug
+      WebSocketClientFactory.__init__(self, url)
 
 
 
@@ -69,6 +71,7 @@ def startClient(wsuri, debug = False):
 def startServer(wsuri, sslKey = None, sslCert = None, debug = False):
    factory = EchoServerFactory(wsuri, debug)
    if sslKey and sslCert:
+      from twisted.internet import ssl
       sslContext = ssl.DefaultOpenSSLContextFactory(sslKey, sslCert)
    else:
       sslContext = None
