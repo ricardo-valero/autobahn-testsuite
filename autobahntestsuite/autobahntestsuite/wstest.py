@@ -36,24 +36,14 @@ from autobahn.websocket.xormasker import XorMaskerNull
 import testee
 import fuzzing
 
-## WAMP testing modes
-#import wamptestee
-#import wampfuzzing
-
 ## Misc testing modes
 import echo
 import broadcast
 import massconnect
-#import wsperfcontrol
-#import wsperfmaster
-import serializer
 
 
 from spectemplate import SPEC_FUZZINGSERVER, \
                          SPEC_FUZZINGCLIENT, \
-                         SPEC_FUZZINGWAMPSERVER, \
-                         SPEC_FUZZINGWAMPCLIENT, \
-                         SPEC_WSPERFCONTROL, \
                          SPEC_MASSCONNECT
 
 
@@ -70,30 +60,15 @@ class WsTestOptions(usage.Options):
             'broadcastserver',
             'fuzzingserver',
             'fuzzingclient',
-            #'fuzzingwampserver',
-            #'fuzzingwampclient',
             'testeeserver',
             'testeeclient',
-            #'wsperfcontrol',
-            #'wsperfmaster',
-            #'wampserver',
-            #'wamptesteeserver',
-            #'wampclient',
-            'massconnect',
-            #'web',
-            #'import',
-            #'export',
-            'serializer'
+            'massconnect'
             ]
 
    # Modes that need a specification file
    MODES_NEEDING_SPEC = ['fuzzingclient',
                          'fuzzingserver',
-                         'fuzzingwampserver',
-                         'fuzzingwampclient',
-                         'wsperfcontrol',
-                         'massconnect',
-                         'import']
+                         'massconnect']
 
    # Modes that need a Websocket URI
    MODES_NEEDING_WSURI = ['echoclient',
@@ -101,19 +76,12 @@ class WsTestOptions(usage.Options):
                           'broadcastclient',
                           'broadcastserver',
                           'testeeclient',
-                          'testeeserver',
-                          'wsperfcontrol',
-                          'wampserver',
-                          'wampclient',
-                          'wamptesteeserver']
+                          'testeeserver']
 
    # Default content of specification files for various modes
    DEFAULT_SPECIFICATIONS = {'fuzzingclient':     SPEC_FUZZINGCLIENT,
                              'fuzzingserver':     SPEC_FUZZINGSERVER,
-                             'wsperfcontrol':     SPEC_WSPERFCONTROL,
-                             'massconnect':       SPEC_MASSCONNECT,
-                             'fuzzingwampclient': SPEC_FUZZINGWAMPCLIENT,
-                             'fuzzingwampserver': SPEC_FUZZINGWAMPSERVER}
+                             'massconnect':       SPEC_MASSCONNECT}
 
    optParameters = [
       ['mode', 'm', None, 'Test mode, one of: %s [required]' % ', '.join(MODES)],
@@ -234,17 +202,8 @@ class WsTestRunner(object):
       elif self.mode == "fuzzingserver":
          return fuzzing.startServer(self.spec, self.options['webport'], debug = self.debug)
 
-      elif self.mode == "wsperfcontrol":
-         return wsperfcontrol.startClient(self.options['wsuri'], self.spec, debug = self.debug)
-
-      elif self.mode == "wsperfmaster":
-         return wsperfmaster.startServer(self.options['webport'], debug = self.debug)
-
       elif self.mode == "massconnect":
          return massconnect.startClient(self.spec, debug = self.debug)
-
-      elif self.mode == "serializer":
-         return serializer.start(outfilename = self.options['outfile'], debug = self.debug)
 
       else:
          raise Exception("no mode '%s'" % self.mode)
