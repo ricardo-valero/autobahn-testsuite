@@ -330,6 +330,31 @@ On first run, the tool will auto-generated a test configuration file:
 You can tweak that file to run only some tests, e.g. `"cases: ["1.*", "2.1.*"]"` will run only the tests under section 1.* and subsection 2.1.*.
 
 
+## Development environment (Nix)
+
+For contributors, the repo ships a Nix flake providing a reproducible dev shell
+with `just`, `uv`, and CPython 2.7.18 (via
+[nixpkgs-python](https://github.com/cachix/nixpkgs-python)) on Linux and macOS:
+
+```console
+nix develop            # or: direnv allow   (auto-activates via .envrc)
+```
+
+To run `wstest` natively (development iteration, no Docker needed):
+
+```console
+uvx 'virtualenv<20.22' -p python2 .venvs/cpy27
+.venvs/cpy27/bin/pip install 'incremental==16.10.1'  # BEFORE Twisted: its setup_requires
+                                                     # otherwise fetches a py3-only version
+.venvs/cpy27/bin/pip install -r autobahntestsuite/requirements.txt
+.venvs/cpy27/bin/pip install ./autobahntestsuite
+.venvs/cpy27/bin/wstest --help
+```
+
+Note: published conformance reports should still be generated with the frozen
+Docker image (`just docker-test`) — see the Legacy Compatibility Note above.
+The native environment is for development iteration only.
+
 ## Release Instructions (for maintainers)
 
 To manually publish releases from your development machine, you need to set up credentials and use the justfile recipes:

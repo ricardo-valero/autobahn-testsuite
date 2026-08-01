@@ -10,3 +10,5 @@ autobahntestsuite/reports
 get-pip.py
 docker/*.whl
 docs/_build/
+.direnv/
+.venvs/
