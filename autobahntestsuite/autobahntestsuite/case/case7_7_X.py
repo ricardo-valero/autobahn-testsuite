@@ -16,7 +16,7 @@
 ##
 ###############################################################################
 
-from case import Case
+from autobahntestsuite.case.case import Case
 
 ## list of some valid close codes
 tests = [1000,1001,1002,1003,1007,1008,1009,1010,1011,3000,3999,4000,4999]
@@ -45,7 +45,7 @@ for s in tests:
    DESCRIPTION = """Send close with valid close code %d""" % s
    EXPECTATION = """Clean close with normal or echoed code"""
    C = type("Case7_7_%d" % i,
-         (object, Case, ),
+         (Case, ),
          {"CLOSE_CODE": s,
           "DESCRIPTION": """%s""" % DESCRIPTION,
           "EXPECTATION": """%s""" % EXPECTATION,

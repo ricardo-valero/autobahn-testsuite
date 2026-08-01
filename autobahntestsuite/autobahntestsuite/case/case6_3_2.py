@@ -18,8 +18,8 @@
 ##
 ###############################################################################
 
-from case import Case
-from case6_3_1 import Case6_3_1
+from autobahntestsuite.case.case import Case
+from autobahntestsuite.case.case6_3_1 import Case6_3_1
 import binascii
 
 class Case6_3_2(Case6_3_1):

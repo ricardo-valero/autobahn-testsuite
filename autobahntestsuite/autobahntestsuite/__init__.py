@@ -16,25 +16,22 @@
 ##
 ###############################################################################
 
-from _version import __version__
+from autobahntestsuite._version import __version__
 
 version = __version__  # backward compat.
 
 import warnings
 
 warnings.filterwarnings("ignore", category=DeprecationWarning)
-warnings.filterwarnings(
-    "ignore", message="Python 2 is no longer supported by the Python core team.*"
-)
 
-import choosereactor  # This MUST BE the FIRST file imported here! Do NOT touch.
-import wstest
-import echo
-import broadcast
-import testee
-import case
-import caseset
-import report
-import spectemplate
-import fuzzing
-import massconnect
+from autobahntestsuite import choosereactor  # This MUST BE the FIRST module imported here! Do NOT touch.
+from autobahntestsuite import wstest
+from autobahntestsuite import echo
+from autobahntestsuite import broadcast
+from autobahntestsuite import testee
+from autobahntestsuite import case
+from autobahntestsuite import caseset
+from autobahntestsuite import report
+from autobahntestsuite import spectemplate
+from autobahntestsuite import fuzzing
+from autobahntestsuite import massconnect

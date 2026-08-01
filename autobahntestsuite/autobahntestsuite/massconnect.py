@@ -70,7 +70,7 @@ class MassConnect:
 
    def run(self):
       self.d = Deferred()
-      self.started = time.clock()
+      self.started = time.perf_counter()
       self.connectBunch()
       return self.d
 
@@ -90,9 +90,9 @@ class MassConnect:
       if self.actual % self.batchsize == 0:
          sys.stdout.write(".")
       if self.actual == self.targetCnt:
-         self.ended = time.clock()
+         self.ended = time.perf_counter()
          duration = self.ended - self.started
-         print " connected %d clients to %s at %s in %s seconds (retries %d = failed %d + lost %d)" % (self.currentCnt, self.name, self.uri, duration, self.failed + self.lost, self.failed, self.lost)
+         print(" connected %d clients to %s at %s in %s seconds (retries %d = failed %d + lost %d)" % (self.currentCnt, self.name, self.uri, duration, self.failed + self.lost, self.failed, self.lost))
          result = {'name': self.name,
                    'uri': self.uri,
                    'connections': self.targetCnt,
@@ -111,7 +111,7 @@ class MassConnect:
       else:
          c = self.targetCnt - self.currentCnt
          redo = False
-      for i in xrange(0, c):
+      for i in range(0, c):
          factory = MassConnectFactory(self.uri)
          factory.test = self
          factory.retrydelay = self.retrydelay
@@ -127,7 +127,7 @@ class MassConnectTest:
 
    @inlineCallbacks
    def run(self):
-      print self.spec
+      print(self.spec)
       res = []
       for s in self.spec['servers']:
          t = MassConnect(s['name'],

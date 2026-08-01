@@ -16,7 +16,7 @@
 ##
 ###############################################################################
 
-from case import Case
+from autobahntestsuite.case.case import Case
 
 class Case7_3_2(Case):
 
@@ -38,5 +38,5 @@ class Case7_3_2(Case):
    def onOpen(self):
       self.expected[Case.OK] = []
       self.expectedClose = {"closedByMe":True,"closeCode":[self.p.CLOSE_STATUS_CODE_PROTOCOL_ERROR],"requireClean":False}
-      self.p.sendCloseFrame(reasonUtf8 = "a")
+      self.p.sendCloseFrame(reasonUtf8 = b"a")
       self.p.killAfter(1)

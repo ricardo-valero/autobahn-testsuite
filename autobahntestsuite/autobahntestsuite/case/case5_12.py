@@ -16,7 +16,7 @@
 ##
 ###############################################################################
 
-from case import Case
+from autobahntestsuite.case.case import Case
 
 class Case5_12(Case):
 
@@ -27,6 +27,6 @@ class Case5_12(Case):
    def onOpen(self):
       self.expected[Case.OK] = []
       self.expectedClose = {"closedByMe":False,"closeCode":[self.p.CLOSE_STATUS_CODE_PROTOCOL_ERROR],"requireClean":False}
-      self.p.sendFrame(opcode = 0, fin = False, payload = "non-continuation payload")
-      self.p.sendFrame(opcode = 1, fin = True, payload = "Hello, world!")
+      self.p.sendFrame(opcode = 0, fin = False, payload = b"non-continuation payload")
+      self.p.sendFrame(opcode = 1, fin = True, payload = b"Hello, world!")
       self.p.killAfter(1)

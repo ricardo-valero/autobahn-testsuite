@@ -19,7 +19,7 @@
 __all__ = ['startClient', 'startServer', 'WS_COMPRESSION_TESTDATA']
 
 
-import os, json, binascii, time, textwrap, pkg_resources
+import os, json, binascii, time, textwrap, importlib.resources
 
 from twisted.python import log, usage
 from twisted.internet import reactor, ssl
@@ -37,35 +37,47 @@ from autobahn.twisted.websocket import WebSocketServerFactory, \
                                        WebSocketClientFactory, \
                                        WebSocketClientProtocol
 
-from case import Case, \
+from autobahntestsuite.case import Case, \
                  Cases, \
                  CaseCategories, \
                  CaseSubCategories, \
                  CaseSetname, \
                  CaseBasename
 
-from caseset import CaseSet
+from autobahntestsuite.caseset import CaseSet
 
 from autobahn.util import utcnow
 
-from report import CSS_COMMON, \
+from autobahntestsuite.report import CSS_COMMON, \
                    CSS_DETAIL_REPORT, \
                    CSS_MASTER_REPORT, \
                    JS_MASTER_REPORT
 
 
+def _as_text(data):
+   ## modern autobahn exposes the handshake HTTP data as bytes; reports are text
+   if data is None:
+      return '?'
+   if type(data) == bytes:
+      return data.decode('utf8', 'replace')
+   return data
+
+
 def binLogData(data, maxlen = 64):
+   ## display-only helper: tolerate str payloads by encoding to raw bytes
+   if type(data) == str:
+      data = data.encode('utf8', 'surrogateescape')
    ellipses = " ..."
    if len(data) > maxlen - len(ellipses):
-      dd = binascii.b2a_hex(data[:maxlen]) + ellipses
+      dd = binascii.b2a_hex(data[:maxlen]).decode('ascii') + ellipses
    else:
-      dd = binascii.b2a_hex(data)
+      dd = binascii.b2a_hex(data).decode('ascii')
    return dd
 
 
 
 def asciiLogData(data, maxlen = 64, replace = False):
-   ellipses = " ..."
+   ellipses = b" ..."
    try:
       if len(data) > maxlen - len(ellipses):
          dd = data[:maxlen] + ellipses
@@ -85,6 +97,9 @@ class FuzzingProtocol:
    MAX_WIRE_LOG_DATA = 256
 
    def connectionMade(self):
+
+      ## modern autobahn no longer mirrors factory.debug onto the protocol
+      self.debug = getattr(self.factory, 'debug', False)
 
       attrs = ['case', 'runCase', 'caseAgent', 'caseStarted', 'connectionWasOpen', 'shutdownOnComplete']
 
@@ -158,8 +173,8 @@ class FuzzingProtocol:
                        "rxFrameStats": self.rxFrameStats,
                        "txOctetStats": self.txOctetStats,
                        "txFrameStats": self.txFrameStats,
-                       "httpRequest": self.http_request_data if hasattr(self, 'http_request_data') else '?',
-                       "httpResponse": self.http_response_data if hasattr(self, 'http_response_data') else '?',
+                       "httpRequest": _as_text(getattr(self, 'http_request_data', None)),
+                       "httpResponse": _as_text(getattr(self, 'http_response_data', None)),
                        "trafficStats": self.runCase.trafficStats.__json__() if self.runCase.trafficStats else None}
 
          def cleanBin(e_old):
@@ -172,7 +187,7 @@ class FuzzingProtocol:
                elif t[0] == 'timeout':
                   e_new.append(t)
                else:
-                  print t
+                  print(t)
                   raise Exception("unknown part type %s" % t[0])
             return e_new
 
@@ -213,14 +228,15 @@ class FuzzingProtocol:
       if self.createStats:
          self.rxFrameStats[frameHeader.opcode] = self.rxFrameStats.get(frameHeader.opcode, 0) + 1
       if self.createWirelog:
-         p = ''.join(payload)
+         ## modern autobahn passes frame payload as a list of byte chunks
+         p = b''.join(payload) if payload is not None else b''
          self.wirelog.append(("RF",
                               (len(p), asciiLogData(p)),
                               frameHeader.opcode,
                               frameHeader.fin,
                               frameHeader.rsv,
                               frameHeader.mask is not None,
-                              binascii.b2a_hex(frameHeader.mask) if frameHeader.mask else None))
+                              binascii.b2a_hex(frameHeader.mask).decode('ascii') if frameHeader.mask else None))
 
 
    def logTxFrame(self, frameHeader, payload, repeatLength, chopsize, sync):
@@ -232,7 +248,7 @@ class FuzzingProtocol:
                               frameHeader.opcode,
                               frameHeader.fin,
                               frameHeader.rsv,
-                              binascii.b2a_hex(frameHeader.mask) if frameHeader.mask else None,
+                              binascii.b2a_hex(frameHeader.mask).decode('ascii') if frameHeader.mask else None,
                               repeatLength,
                               chopsize,
                               sync))
@@ -254,7 +270,7 @@ class FuzzingProtocol:
    def executeKillAfter(self):
       if self.state != WebSocketProtocol.STATE_CLOSED:
          self.wirelog.append(("KLE", ))
-         self.failConnection()
+         self._fail_connection()
       else:
          pass # connection already gone
 
@@ -285,7 +301,7 @@ class FuzzingProtocol:
 
          cc_id = self.factory.CaseSet.caseClasstoId(self.runCase.__class__)
          if self.factory.CaseSet.checkAgentCaseExclude(self.factory.specExcludeAgentCases, self.caseAgent, cc_id):
-            print "Skipping test case %s for agent %s by test configuration!" % (cc_id, self.caseAgent)
+            print("Skipping test case %s for agent %s by test configuration!" % (cc_id, self.caseAgent))
             self.runCase = None
             self.sendClose()
             return
@@ -297,20 +313,20 @@ class FuzzingProtocol:
          self.factory.createReports()
          self.sendClose()
          if self.shutdownOnComplete:
-            print "Report generation complete; shutting down server."
+            print("Report generation complete; shutting down server.")
             reactor.stop()
          else:
-            print "Report generation complete."
+            print("Report generation complete.")
 
       elif self.path == "/getCaseCount":
-         self.sendMessage(json.dumps(len(self.factory.specCases)))
+         self.sendMessage(json.dumps(len(self.factory.specCases)).encode('utf8'))
          self.sendClose()
 
       elif self.path == "/getCaseStatus":
          def sendResults(results):
             self.sendMessage(json.dumps({
                'behavior':results['behavior']
-            }))
+            }).encode('utf8'))
             self.sendClose()
 
          self.factory.addResultListener(self.caseAgent, self.factory.CaseSet.caseClasstoId(self.Case), sendResults)
@@ -319,11 +335,11 @@ class FuzzingProtocol:
          self.sendMessage(json.dumps({
             'id': self.factory.CaseSet.caseClasstoId(self.Case),
             'description': self.factory.CaseSet.caseClassToPrettyDescription(self.Case),
-         }))
+         }).encode('utf8'))
          self.sendClose()
 
       elif self.path == "/stopServer":
-         print "Shutting down server."
+         print("Shutting down server.")
          reactor.stop()
 
       else:
@@ -401,7 +417,10 @@ class FuzzingProtocol:
             ##
             elif obj[0] == "echo":
                spec = obj[1]
-               self.sendFrame(opcode = 1, payload = spec.get("payload", ""), payload_len = spec.get("payload_len", None))
+               _echopl = spec.get("payload", "")
+               if type(_echopl) == str:
+                  _echopl = _echopl.encode("utf8")
+               self.sendFrame(opcode = 1, payload = _echopl, payload_len = spec.get("payload_len", None))
 
             else:
                raise Exception("fuzzing peer received unknown command" % obj[0])
@@ -432,13 +451,13 @@ class FuzzingFactory:
 
       ## index by agent->case
       ##
-      if not self.agents.has_key(agent):
+      if not agent in self.agents:
          self.agents[agent] = {}
       self.agents[agent][case] = caseResults
 
       ## index by case->agent
       ##
-      if not self.cases.has_key(case):
+      if not case in self.cases:
          self.cases[case] = {}
       self.cases[case][agent] = caseResults
 
@@ -516,7 +535,7 @@ class FuzzingFactory:
       """
       res = {}
       for agentId in self.agents:
-         if not res.has_key(agentId):
+         if not agentId in res:
             res[agentId] = {}
          for caseId in self.agents[agentId]:
             case = self.agents[agentId][caseId]
@@ -661,7 +680,7 @@ class FuzzingFactory:
          ## Case results
          ##
          for agentId in agentList:
-            if self.agents[agentId].has_key(caseId):
+            if caseId in self.agents[agentId]:
 
                case = self.agents[agentId][caseId]
 
@@ -768,10 +787,10 @@ class FuzzingFactory:
       :returns: str -- Name of created file.
       """
 
-      if not self.agents.has_key(agentId):
+      if not agentId in self.agents:
          raise Exception("no test data stored for agent %s" % agentId)
 
-      if not self.agents[agentId].has_key(caseId):
+      if not caseId in self.agents[agentId]:
          raise Exception("no test data stored for case %s with agent %s" % (caseId, agentId))
 
       ## get case to generate report for
@@ -799,10 +818,10 @@ class FuzzingFactory:
       :returns: str -- Name of created file.
       """
 
-      if not self.agents.has_key(agentId):
+      if not agentId in self.agents:
          raise Exception("no test data stored for agent %s" % agentId)
 
-      if not self.agents[agentId].has_key(caseId):
+      if not caseId in self.agents[agentId]:
          raise Exception("no test data stored for case %s with agent %s" % (caseId, agentId))
 
       ## get case to generate report for
@@ -892,7 +911,7 @@ class FuzzingFactory:
       f.write('      <table>\n')
       f.write('         <tr class="stats_header"><td>Key</td><td class="left">Value</td><td class="left">Description</td></tr>\n')
       for c in cbv:
-         f.write(('         <tr class="stats_row"><td>%s</td><td class="left">%s</td><td class="left">%s</td></tr>\n' % (c[0], case[c[0]], c[1])).encode("utf-8"))
+         f.write('         <tr class="stats_row"><td>%s</td><td class="left">%s</td><td class="left">%s</td></tr>\n' % (c[0], case[c[0]], c[1]))
       f.write('      </table>')
       f.write("      <br/><hr/>\n")
 
@@ -986,8 +1005,9 @@ class FuzzingFactory:
                      f.write('         <pre class="%s">%s%s</pre>\n' % (css_class, (2+4+len(prefix))*" ", ll))
             else:
                if t[0] == "RF":
+                  ## t[6] is already the hex-encoded mask (or None) from logRxFrame
                   if t[6]:
-                     mmask = binascii.b2a_hex(t[6])
+                     mmask = t[6]
                   else:
                      mmask = str(t[6])
                   f.write('         <pre class="%s">%03d %s: OPCODE=%s, FIN=%s, RSV=%s, PAYLOAD-LEN=%s, MASKED=%s, MASK=%s</pre>\n' % (css_class, i, prefix, str(t[2]), str(t[3]), str(t[4]), payloadLen, str(t[5]), mmask))
@@ -996,7 +1016,7 @@ class FuzzingFactory:
                else:
                   raise Exception("logic error")
                for ll in lines:
-                  f.write('         <pre class="%s">%s%s</pre>\n' % (css_class, (2+4+len(prefix))*" ", ll.encode('utf8')))
+                  f.write('         <pre class="%s">%s%s</pre>\n' % (css_class, (2+4+len(prefix))*" ", ll))
 
          elif t[0] == "WLM":
             if t[1]:
@@ -1062,7 +1082,7 @@ class FuzzingServerProtocol(FuzzingProtocol, WebSocketServerProtocol):
       if self.debug:
          log.msg("connection received from %s speaking WebSocket protocol %d - upgrade request for host '%s', path '%s', params %s, origin '%s', protocols %s, headers %s" % (connectionRequest.peer, connectionRequest.version, connectionRequest.host, connectionRequest.path, str(connectionRequest.params), connectionRequest.origin, str(connectionRequest.protocols), str(connectionRequest.headers)))
 
-      if connectionRequest.params.has_key("agent"):
+      if "agent" in connectionRequest.params:
          if len(connectionRequest.params["agent"]) > 1:
             raise Exception("multiple agents specified")
          self.caseAgent = connectionRequest.params["agent"][0]
@@ -1070,7 +1090,7 @@ class FuzzingServerProtocol(FuzzingProtocol, WebSocketServerProtocol):
          #raise Exception("no agent specified")
          self.caseAgent = None
 
-      if connectionRequest.params.has_key("casetuple"):
+      if "casetuple" in connectionRequest.params:
          if len(connectionRequest.params["casetuple"]) > 1:
             raise Exception("multiple test cases specified")
          try:
@@ -1080,7 +1100,7 @@ class FuzzingServerProtocol(FuzzingProtocol, WebSocketServerProtocol):
          except:
             raise Exception("invalid test case tuple %s" % connectionRequest.params["casetuple"][0])
 
-      if connectionRequest.params.has_key("case"):
+      if "case" in connectionRequest.params:
          if len(connectionRequest.params["case"]) > 1:
             raise Exception("multiple test cases specified")
          try:
@@ -1088,7 +1108,7 @@ class FuzzingServerProtocol(FuzzingProtocol, WebSocketServerProtocol):
          except:
             raise Exception("invalid test case ID %s" % connectionRequest.params["case"][0])
 
-      if connectionRequest.params.has_key("shutdownOnComplete"):
+      if "shutdownOnComplete" in connectionRequest.params:
          if len(connectionRequest.params["shutdownOnComplete"]) > 1:
             raise Exception("shutdownOnComplete only supports a single Boolean value")
          try:
@@ -1114,12 +1134,12 @@ class FuzzingServerProtocol(FuzzingProtocol, WebSocketServerProtocol):
          if not self.caseAgent:
             raise Exception("need agent to run case")
          self.caseStarted = utcnow()
-         print "Running test case ID %s for agent %s from peer %s" % (self.factory.CaseSet.caseClasstoId(self.Case), self.caseAgent, connectionRequest.peer)
+         print("Running test case ID %s for agent %s from peer %s" % (self.factory.CaseSet.caseClasstoId(self.Case), self.caseAgent, connectionRequest.peer))
 
       elif connectionRequest.path == "/updateReports":
          if not self.caseAgent:
             raise Exception("need agent to update reports for")
-         print "Updating reports, requested by peer %s" % connectionRequest.peer
+         print("Updating reports, requested by peer %s" % connectionRequest.peer)
 
       elif connectionRequest.path == "/getCaseInfo":
          if not self.Case:
@@ -1135,7 +1155,7 @@ class FuzzingServerProtocol(FuzzingProtocol, WebSocketServerProtocol):
          pass
 
       else:
-         print "Entering direct command mode for peer %s" % connectionRequest.peer
+         print("Entering direct command mode for peer %s" % connectionRequest.peer)
 
       self.path = connectionRequest.path
 
@@ -1149,7 +1169,8 @@ class FuzzingServerFactory(FuzzingFactory, WebSocketServerFactory):
 
    def __init__(self, spec, debug = False):
 
-      WebSocketServerFactory.__init__(self, debug = debug, debugCodePaths = debug)
+      self.debug = debug
+      WebSocketServerFactory.__init__(self)
       FuzzingFactory.__init__(self, spec.get("outdir", "./reports/clients/"))
 
       # needed for wire log / stats
@@ -1173,9 +1194,9 @@ class FuzzingServerFactory(FuzzingFactory, WebSocketServerFactory):
 
       self.specCases = self.CaseSet.parseSpecCases(self.spec)
       self.specExcludeAgentCases = self.CaseSet.parseExcludeAgentCases(self.spec)
-      print "Autobahn WebSocket %s/%s Fuzzing Server (Port %d%s)" % (autobahntestsuite.version, autobahn.version, self.port, ' TLS' if self.isSecure else '')
-      print "Ok, will run %d test cases for any clients connecting" % len(self.specCases)
-      print "Cases = %s" % str(self.specCases)
+      print("Autobahn WebSocket %s/%s Fuzzing Server (Port %d%s)" % (autobahntestsuite.version, autobahn.version, self.port, ' TLS' if self.isSecure else ''))
+      print("Ok, will run %d test cases for any clients connecting" % len(self.specCases))
+      print("Cases = %s" % str(self.specCases))
 
 
 
@@ -1190,7 +1211,7 @@ class FuzzingClientProtocol(FuzzingProtocol, WebSocketClientProtocol):
    def onConnect(self, response):
       if not self.caseAgent:
          self.caseAgent = response.headers.get('server', 'UnknownServer')
-      print "Running test case ID %s for agent %s from peer %s" % (self.factory.CaseSet.caseClasstoId(self.Case), self.caseAgent, self.peer)
+      print("Running test case ID %s for agent %s from peer %s" % (self.factory.CaseSet.caseClasstoId(self.Case), self.caseAgent, self.peer))
 
 
    def connectionLost(self, reason):
@@ -1205,7 +1226,8 @@ class FuzzingClientFactory(FuzzingFactory, WebSocketClientFactory):
 
    def __init__(self, spec, debug = False):
 
-      WebSocketClientFactory.__init__(self, debug = debug, debugCodePaths = debug)
+      self.debug = debug
+      WebSocketClientFactory.__init__(self)
       FuzzingFactory.__init__(self, spec.get("outdir", "./reports/servers/"))
 
       # needed for wire log / stats
@@ -1218,10 +1240,10 @@ class FuzzingClientFactory(FuzzingFactory, WebSocketClientFactory):
 
       self.specCases = self.CaseSet.parseSpecCases(self.spec)
       self.specExcludeAgentCases = self.CaseSet.parseExcludeAgentCases(self.spec)
-      print "Autobahn Fuzzing WebSocket Client (Autobahn Testsuite Version %s / Autobahn Version %s)" % (autobahntestsuite.version, autobahn.version)
-      print "Ok, will run %d test cases against %d servers" % (len(self.specCases), len(spec["servers"]))
-      print "Cases = %s" % str(self.specCases)
-      print "Servers = %s" % str([x["url"] for x in spec["servers"]])
+      print("Autobahn Fuzzing WebSocket Client (Autobahn Testsuite Version %s / Autobahn Version %s)" % (autobahntestsuite.version, autobahn.version))
+      print("Ok, will run %d test cases against %d servers" % (len(self.specCases), len(spec["servers"])))
+      print("Cases = %s" % str(self.specCases))
+      print("Servers = %s" % str([x["url"] for x in spec["servers"]]))
 
       self.currServer = -1
       if self.nextServer():
@@ -1264,9 +1286,7 @@ class FuzzingClientFactory(FuzzingFactory, WebSocketClientFactory):
          ## WebSocket session parameters
          ##
          self.setSessionParameters(url = server["url"],
-                                   origin = server.get("origin", None),
-                                   protocols = server.get("protocols", []),
-                                   useragent = "AutobahnTestSuite/%s-%s" % (autobahntestsuite.version, autobahn.version))
+                                   protocols = server.get("protocols", []))
 
          ## WebSocket protocol options
          ##
@@ -1302,7 +1322,7 @@ class FuzzingClientFactory(FuzzingFactory, WebSocketClientFactory):
 
 
    def clientConnectionFailed(self, connector, reason):
-      print "Connection to %s failed (%s)" % (self.spec["servers"][self.currServer]["url"], reason.getErrorMessage())
+      print("Connection to %s failed (%s)" % (self.spec["servers"][self.currServer]["url"], reason.getErrorMessage()))
       if self.nextServer():
          if self.nextCase():
             connectWS(self)
@@ -1337,10 +1357,9 @@ def startServer(spec, webport, sslKey = None, sslCert = None, debug = False):
    listenWS(factory, sslContext)
 
    if webport:
-      webdir = File(pkg_resources.resource_filename("autobahntestsuite",
-                                                    "web/fuzzingserver"))
+      webdir = File(str(importlib.resources.files("autobahntestsuite") / "web/fuzzingserver"))
       curdir = File('.')
-      webdir.putChild('cwd', curdir)
+      webdir.putChild(b'cwd', curdir)
       web = Site(webdir)
       if factory.isSecure:
          reactor.listenSSL(webport, web, sslContext)

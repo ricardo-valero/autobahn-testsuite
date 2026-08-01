@@ -16,7 +16,7 @@
 ##
 ###############################################################################
 
-from case import Case
+from autobahntestsuite.case.case import Case
 
 class Case9_5_1(Case):
 
@@ -29,7 +29,7 @@ class Case9_5_1(Case):
 
    def init(self):
       self.DATALEN = 1 * 2**20
-      self.PAYLOAD = "BAsd7&jh23"
+      self.PAYLOAD = b"BAsd7&jh23"
       self.WAITSECS = 1000
       self.reportTime = True
       self.setChopSize()

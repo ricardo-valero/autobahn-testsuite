@@ -131,15 +131,35 @@ Autobahn|Testsuite is used by numerous projects and companies across the industr
 
 ## Installation
 
+### Python 3 (this fork)
+
+This fork runs on **Python 3.12+** with a modern autobahn/Twisted stack,
+managed by [uv](https://docs.astral.sh/uv/):
+
+```console
+uv sync                 # install into .venv from pyproject.toml + uv.lock
+uv run wstest -a        # Autobahn / AutobahnTestSuite versions
+uv run wstest -m fuzzingserver     # test WebSocket clients (port 9001)
+uv run wstest -m fuzzingclient     # test WebSocket servers
+```
+
+Supported modes: `fuzzingserver`, `fuzzingclient`, `echoserver`, `echoclient`,
+`broadcastserver`, `broadcastclient`, `testeeserver`, `testeeclient`,
+`massconnect`. The legacy WAMP, wsperf, and `serializer` modes were removed in
+the Python 3 port.
+
+Behavioral equivalence with the frozen Python 2 reference is validated by the
+differential harness in [`test/differential/`](test/differential/): the port
+passes the full non-compression, non-limits suite (sections 1-8, 10, 11) with
+no failures or exceptions against a conformant echo testee.
+
 🧊 Legacy Compatibility Note
 
-The Autobahn|Testsuite Docker image is frozen intentionally on
-pypy:2-7-bullseye (PyPy 7.3.11 / Python 2.7.18 / OpenSSL 1.1.1w).
-This combination is the last working environment for the original
-WebSocket conformance suite before the Python 3 transition.
-
-Newer base images (e.g. Debian bookworm, OpenSSL 3.x) are incompatible
-with the pinned PyPy2-era cryptography and Twisted dependencies.
+The frozen Autobahn|Testsuite Docker image (pypy:2-7-bullseye — PyPy 7.3.11 /
+Python 2.7.18 / OpenSSL 1.1.1w) remains the **historical conformance
+reference**. It is the last working environment for the original Python 2
+suite, and newer base images (Debian bookworm, OpenSSL 3.x) are incompatible
+with its pinned PyPy2-era cryptography and Twisted dependencies.
 
 **Purpose: preserve a stable, reproducible reference testbed
 against which WebSocket implementations can validate conformance

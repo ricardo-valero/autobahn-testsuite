@@ -16,7 +16,7 @@
 ##
 ###############################################################################
 
-from case import Case
+from autobahntestsuite.case.case import Case
 
 ## list of some invalid close codes
 tests = [0,999,1004,1005,1006,1016,1100,2000,2999]
@@ -45,7 +45,7 @@ for s in tests:
    DESCRIPTION = """Send close with invalid close code %d""" % s
    EXPECTATION = """Clean close with protocol error code or drop TCP"""
    C = type("Case7_9_%d" % i,
-            (object, Case, ),
+            (Case, ),
             {"CLOSE_CODE": s,
              "DESCRIPTION": """%s""" % DESCRIPTION,
              "EXPECTATION": """%s""" % EXPECTATION,

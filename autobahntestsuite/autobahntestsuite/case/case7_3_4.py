@@ -16,7 +16,7 @@
 ##
 ###############################################################################
 
-from case import Case
+from autobahntestsuite.case.case import Case
 
 class Case7_3_4(Case):
 
@@ -35,7 +35,7 @@ class Case7_3_4(Case):
          self.passed = False
          self.result = self.resultClose 
    def onOpen(self):
-      self.payload = u"Hello World!"
+      self.payload = "Hello World!"
       self.expected[Case.OK] = []
       self.expectedClose = {"closedByMe":True,"closeCode":[self.p.CLOSE_STATUS_CODE_NORMAL],"requireClean":True}
       self.p.sendClose(self.p.CLOSE_STATUS_CODE_NORMAL,self.payload)
