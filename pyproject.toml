@@ -21,17 +21,28 @@ Documentation = "https://autobahntestsuite.readthedocs.io"
 [project.scripts]
 wstest = "autobahntestsuite.wstest:run"
 
+[project.optional-dependencies]
+# Installable as an extra (`pip install .[docs]`) so Read the Docs and uv share
+# one source of truth for the Sphinx toolchain.
+docs = [
+    "sphinx>=8.2",
+    "sphinxcontrib-images>=1.0",
+    "sphinx-rtd-theme>=3.0",
+]
+
 [dependency-groups]
 dev = [
     "ty",
 ]
 
 [tool.uv]
+# Latest transitive deps everywhere EXCEPT x86_64-macOS, which lacks wheels for
+# cbor2>=6 / cryptography>=49 (Rust source builds). The markers keep that one
+# platform on the last wheel-available versions; Linux/CI/Apple Silicon get
+# latest. Self-removing once the dev machine is Apple Silicon.
 constraint-dependencies = [
-    # cbor2 >=6 is Rust-based with no x86_64-macOS wheels; 5.x ships wheels everywhere
-    "cbor2<6",
-    # cryptography >=49 dropped x86_64-macOS wheels (Rust build required)
-    "cryptography<49",
+    "cbor2<6; platform_machine == 'x86_64' and sys_platform == 'darwin'",
+    "cryptography<49; platform_machine == 'x86_64' and sys_platform == 'darwin'",
 ]
 
 [build-system]

@@ -131,146 +131,48 @@ Autobahn|Testsuite is used by numerous projects and companies across the industr
 
 ## Installation
 
-### Python 3 (this fork)
-
-This fork runs on **Python 3.12+** with a modern autobahn/Twisted stack,
-managed by [uv](https://docs.astral.sh/uv/):
+This fork runs on **Python 3.12+** with a modern autobahn/Twisted stack. Pick
+whichever you already have — no need for all three:
 
 ```console
-uv sync                 # install into .venv from pyproject.toml + uv.lock
-uv run wstest -a        # Autobahn / AutobahnTestSuite versions
-uv run wstest -m fuzzingserver     # test WebSocket clients (port 9001)
-uv run wstest -m fuzzingclient     # test WebSocket servers
-```
+# Have uv or pip? (recommended)
+uvx autobahntestsuite wstest -m fuzzingserver     # zero-install, ephemeral
+# or:  pip install autobahntestsuite && wstest -m fuzzingserver
 
-Supported modes: `fuzzingserver`, `fuzzingclient`, `echoserver`, `echoclient`,
-`broadcastserver`, `broadcastclient`, `testeeserver`, `testeeclient`,
-`massconnect`. The legacy WAMP, wsperf, and `serializer` modes were removed in
-the Python 3 port.
+# Working on the suite itself?
+uv sync && uv run wstest -m fuzzingserver          # from a clone (or: just run)
 
-Behavioral equivalence with the frozen Python 2 reference is validated by the
-differential harness in [`test/differential/`](test/differential/): the port
-passes the full non-compression, non-limits suite (sections 1-8, 10, 11) with
-no failures or exceptions against a conformant echo testee.
-
-🧊 Legacy Compatibility Note
-
-The frozen Autobahn|Testsuite Docker image (pypy:2-7-bullseye — PyPy 7.3.11 /
-Python 2.7.18 / OpenSSL 1.1.1w) remains the **historical conformance
-reference**. It is the last working environment for the original Python 2
-suite, and newer base images (Debian bookworm, OpenSSL 3.x) are incompatible
-with its pinned PyPy2-era cryptography and Twisted dependencies.
-
-**Purpose: preserve a stable, reproducible reference testbed
-against which WebSocket implementations can validate conformance
-— even as the main Autobahn project evolves.**
-
-### Using the testsuite Docker image (Recommended)
-
-The testsuite is available as a [Docker image](https://hub.docker.com/r/crossbario/autobahn-testsuite/tags/) which allows
-easy and repeatable use both for testing WebSocket clients and WebSocket servers.
-
-By default, the image will run the testsuite in so-called "fuzzingserver" mode. This is the mode used to test your WebSocket _client_ implementations.
-
-To start the testsuite container:
-
-```console
-docker run -it --rm \
-    -v "${PWD}/config:/config" \
-    -v "${PWD}/reports:/reports" \
-    -p 9001:9001 \
-    --name fuzzingserver \
+# A container-only CI, testing a non-Python implementation?
+docker run -it --rm -p 9001:9001 \
+    -v "${PWD}/config:/config" -v "${PWD}/reports:/reports" \
     crossbario/autobahn-testsuite:25.10.1
 ```
 
-Above will mount an (included) test configuration from the [docker/config](config) folder, which must include a server test configuration file [docker/config/fuzzingserver.json](docker/config/fuzzingserver.json) like this:
+`wstest` runs the fuzzing server on port 9001; point your WebSocket client at it
+and collect the conformance report. Supported modes: `fuzzingserver`,
+`fuzzingclient`, `echoserver`, `echoclient`, `broadcastserver`,
+`broadcastclient`, `testeeserver`, `testeeclient`, `massconnect`.
+
+### The frozen Python 2 reference
+
+The published, immutable image `crossbario/autobahn-testsuite:25.10.1`
+(PyPy 2.7 / OpenSSL 1.1) is the **historical conformance reference** — the last
+Python 2 build of the suite, preserved for byte-exact comparison. Master no
+longer builds a Docker image; that published image and the `v25.10.1-py2` git
+tag preserve the frozen state. The `docker run` recipe above uses it and is the
+best option for non-Python projects wiring conformance into their own CI.
+
+A sample fuzzing spec (`config/fuzzingserver.json`), excluding the long-running
+performance (`9.*`) and compression (`12.*`/`13.*`) cases:
 
 ```json
 {
     "url": "ws://127.0.0.1:9001",
     "outdir": "./reports/clients",
     "cases": ["*"],
-    "exclude-cases": [
-        "9.*",
-        "12.*",
-        "13.*"
-    ],
+    "exclude-cases": ["9.*", "12.*", "13.*"],
     "exclude-agent-cases": {}
 }
-```
-
-> This specific config will run all test cases, but exclude the longer running mass/performance test cases 9.*, and exclude the WebSocket compression test cases 12.*/13.* (which only make sense if your client library implements [RFC7692 ("permessage-deflate")](https://tools.ietf.org/html/rfc7692)).
-
-Above command will also mount a host directory/volume [reports](reports) where the generated reports will be placed by the testsuite.
-
-Finally, the config will make the fuzzing server run on port 9001 - and expose that on the host.
-
-> To test multiple clients and generate one big report containing all clients, do NOT stop the testsuite container, but run all your clients, and then stop the container. The generated reports will include all clients.
-
-Here is how to test the Python 3 / asyncio flavor of [AutobahnPython](https://github.com/crossbario/autobahn-python):
-
-```console
-pip install autobahn
-wget https://raw.githubusercontent.com/crossbario/autobahn-python/master/wstest/testee_client_aio.py
-python testee_client_aio.py
-```
-
-### Using the testsuite Python package (Not Recommended)
-
-**The following recipe still works, but the new, recommended way is using a Docker toolchain image we provide. Please checkout [this](https://github.com/crossbario/crossbar-docker/tree/master/autobahn-testsuite#usage) - much easier and repeatable.**
-
-The testsuite comes as a single command line tool, `wstest`. You will need Python 2 or PyPy (recommended).
-
-> Right now we only support Python 2 and Python 3 will *not* work. The testsuite is developed and tested on CPython 2 and PyPy. The latter is a high-performance Python implementation.
-
-The recommended way to install `wstest` is into it's own, dedicated [virtualenv](http://docs.python-guide.org/en/latest/dev/virtualenvs/).
-
-> On Debian/Ubuntu systems, you can install virtualenv like `sudo apt-get install python-virtualenv`.
-
-Create a new virtualenv in your HOME and install Autobahn testsuite:
-
-```console
-virtualenv ~/wstest
-source ~/wstest/bin/activate
-pip install autobahntestsuite
-```
-
-You will now have the `wstest` tool:
-
-
-```console
-(wstest)oberstet@thinkpad-t430s:~$ which wstest
-/home/oberstet/wstest/bin/wstest
-(wstest)oberstet@thinkpad-t430s:~$ wstest -a
-Autobahn 0.10.9
-AutobahnTestSuite 0.7.4
-(wstest)oberstet@thinkpad-t430s:~$ wstest --help
-Usage: wstest [options]
-Options:
-  -d, --debug            Debug output [default: off].
-  -a, --autobahnversion  Print version information for Autobahn and
-                         AutobahnTestSuite.
-  -m, --mode=            Test mode, one of: echoserver, echoclient,
-                         broadcastclient, broadcastserver, fuzzingserver,
-                         fuzzingclient, testeeserver, testeeclient, massconnect,
-                         serializer [required]
-  -t, --testset=         Run a test set from an import test spec.
-  -s, --spec=            Test specification file [required in some modes].
-  -o, --outfile=         Output filename for modes that generate testdata.
-  -w, --wsuri=           WebSocket URI [required in some modes].
-  -u, --webport=         Web port for running an embedded HTTP Web server;
-                         defaults to 8080; set to 0 to disable. [optionally used
-                         in some modes: fuzzingserver, echoserver,
-                         broadcastserver, wsperfmaster]. [default: 8080]
-  -i, --ident=           Testee client identifier [optional for client testees].
-  -k, --key=             Server private key file for secure WebSocket (WSS)
-                         [required in server modes for WSS].
-  -c, --cert=            Server certificate file for secure WebSocket (WSS)
-                         [required in server modes for WSS].
-      --version          Display Twisted version and exit.
-      --help             Display this help and exit.
-
-(wstest)oberstet@thinkpad-t430s:~$
 ```
 
 ## How to use
@@ -352,58 +254,27 @@ You can tweak that file to run only some tests, e.g. `"cases: ["1.*", "2.1.*"]"`
 
 ## Development environment (Nix)
 
-For contributors, the repo ships a Nix flake providing a reproducible dev shell
-with `just`, `uv`, and CPython 2.7.18 (via
-[nixpkgs-python](https://github.com/cachix/nixpkgs-python)) on Linux and macOS:
+The repo ships a Nix flake providing a reproducible dev shell (`just`, `uv`,
+`python3`, plus `nixd`/`alejandra`). Two tools do everything: `nix` provides the
+environment, `uv` owns the Python package.
 
 ```console
 nix develop            # or: direnv allow   (auto-activates via .envrc)
+uv sync                # install the project + dev tools from uv.lock
+uv run wstest -a       # or: just run -a
+just --list            # discover the (thin) command menu
 ```
 
-To run `wstest` natively (development iteration, no Docker needed):
-
-```console
-uvx 'virtualenv<20.22' -p python2 .venvs/cpy27
-.venvs/cpy27/bin/pip install 'incremental==16.10.1'  # BEFORE Twisted: its setup_requires
-                                                     # otherwise fetches a py3-only version
-.venvs/cpy27/bin/pip install -r autobahntestsuite/requirements.txt
-.venvs/cpy27/bin/pip install ./autobahntestsuite
-.venvs/cpy27/bin/wstest --help
-```
-
-Note: published conformance reports should still be generated with the frozen
-Docker image (`just docker-test`) — see the Legacy Compatibility Note above.
-The native environment is for development iteration only.
+`just` recipes are thin aliases over `uv`/`nix` (`just dev|run|sync|build|publish|check|docs`).
 
 ## Release Instructions (for maintainers)
 
-To manually publish releases from your development machine, you need to set up credentials and use the justfile recipes:
-
-### 1. Setup RTD Token
-```bash
-# Get your API token from https://readthedocs.org/accounts/tokens/
-export RTD_TOKEN=your_rtd_token_here
+```console
+uv build && uv publish        # (or: just publish) — build + upload to PyPI
 ```
 
-### 2. Setup PyPI Token 
-```bash
-# Configure ~/.pypirc with your PyPI token, or set environment variable
-export TWINE_PASSWORD=your_pypi_token_here
-```
-
-### 3. Setup Docker Hub
-```bash
-# Login to Docker Hub first
-docker login
-```
-
-### 4. Manual Publishing
-```bash
-# Build and publish to all platforms
-just publish-to-pypi      # Uploads source distribution + wheel to PyPI
-just publish-to-dockerhub # Pushes Docker images to Docker Hub  
-just publish-to-rtd       # Uploads documentation to Read the Docs
-```
-
-The justfile handles building dependencies automatically - each publish recipe will build what it needs before uploading.
+`uv publish` needs a PyPI token (`UV_PUBLISH_TOKEN` or `~/.pypirc`).
+Documentation builds automatically on Read the Docs from `.readthedocs.yml`
+(installs the `docs` extra). The frozen Python 2 Docker image is **not**
+rebuilt — the published `crossbario/autobahn-testsuite:25.10.1` is immutable.
 

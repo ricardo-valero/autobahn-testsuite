@@ -1,8 +1,14 @@
 # Differential validation (migrate-python3)
 
-Proves the Python 3 port behaves the same as the frozen Python 2 Docker
-reference. The port's value is *stable, known* conformance behavior, so
-behavioral equivalence — not "tests pass" — is the acceptance gate.
+Proves the Python 3 port behaves the same as the frozen Python 2 reference.
+The port's value is *stable, known* conformance behavior, so behavioral
+equivalence — not "tests pass" — is the acceptance gate.
+
+**Frozen reference** = the immutable published image
+`crossbario/autobahn-testsuite:25.10.1` (Docker Hub, published 2025-10-07),
+matching the `v25.10.1-py2` git tag. Master no longer builds a Docker image;
+this published image is the only Docker artifact the workflow still touches,
+and only to capture reference reports (see fixtures under `reference/`).
 
 ## Procedure
 
