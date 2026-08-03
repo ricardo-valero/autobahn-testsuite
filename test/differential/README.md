@@ -52,10 +52,32 @@ py3 fuzzingserver, drive it with `run_fuzzingserver.py --agent diffcheck`, then:
 python normalize_reports.py reference/index-sections-1-8-10-11.json <py3>/index.json
 ```
 
-**Still open — sections 9, 12, 13.** Section 9 (limits) passes standalone but
-was excluded from the diff for runtime. Sections 12/13 (permessage-deflate,
-the flagged drift risk) need a *canonical* deflate testee
-([autobahn-python's `testee_client_aio.py`](https://github.com/crossbario/autobahn-python/blob/master/wstest/testee_client_aio.py))
-for a trustworthy diff — a hand-rolled deflate echo client is both slow over
-section 13's hundreds of cases and of unverified conformance, so any difference
-it surfaces can't be attributed to the port vs. the testee. Follow-up.
+### Sections 12/13 (permessage-deflate) — also validated
+
+A second run (2026-08-03) covered the compression cases, the flagged drift
+risk. **Result: 216 cases (sections 12, 13), 0 differences** — all "OK" with
+close code 1000 on both the frozen py2 reference and the py3 port.
+
+Getting there found and fixed a real port bug the echo testee could never
+reach: the 12/13 case bodies read testdata via `open(fn, b'rb')` — a bytes
+mode literal that raises under py3 (`open() argument 'mode' must be str, not
+bytes`). Only a permessage-deflate-negotiating testee exercises those bodies,
+so the compression follow-up was what surfaced it.
+
+Two testee wrinkles worth recording:
+- The canonical [`testee_client_aio.py`](https://github.com/crossbario/autobahn-python/blob/master/wstest/testee_client_aio.py)
+  offers deflate on *every* connection, including `/getCaseCount`. The 2015-era
+  py2 server (autobahn 0.10.9) can't complete that control-plane exchange over
+  deflate with a 2026 client, so the count never arrives and the testee crashes.
+  This is version-skew interop, not a port defect.
+- `diff_driver_deflate.py` (committed here) works against both: it fetches the
+  count on a *plain* connection and offers deflate only on `/runCase`. Use it
+  for both sides of the compression diff.
+
+`reference/index-sections-12-13.json` is the committed Docker-free fixture.
+
+### Remaining
+
+Section 9 (limits) passes standalone on py3 but was excluded from the diff for
+runtime (large/slow payloads). Everything else — 463 cases across sections 1-8,
+10, 11, 12, 13 — is proven byte-identical to the frozen py2 reference.
