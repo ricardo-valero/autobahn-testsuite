@@ -1,0 +1,1516 @@
+{
+   "diffcheck": {
+      "12.1.1": {
+         "behavior": "OK",
+         "behaviorClose": "OK",
+         "duration": 2134,
+         "remoteCloseCode": 1000,
+         "reportfile": "diffcheck_case_12_1_1.json"
+      },
+      "12.1.10": {
+         "behavior": "OK",
+         "behaviorClose": "OK",
+         "duration": 7528,
+         "remoteCloseCode": 1000,
+         "reportfile": "diffcheck_case_12_1_10.json"
+      },
+      "12.1.11": {
+         "behavior": "OK",
+         "behaviorClose": "OK",
+         "duration": 2098,
+         "remoteCloseCode": 1000,
+         "reportfile": "diffcheck_case_12_1_11.json"
+      },
+      "12.1.12": {
+         "behavior": "OK",
+         "behaviorClose": "OK",
+         "duration": 2432,
+         "remoteCloseCode": 1000,
+         "reportfile": "diffcheck_case_12_1_12.json"
+      },
+      "12.1.13": {
+         "behavior": "OK",
+         "behaviorClose": "OK",
+         "duration": 3051,
+         "remoteCloseCode": 1000,
+         "reportfile": "diffcheck_case_12_1_13.json"
+      },
+      "12.1.14": {
+         "behavior": "OK",
+         "behaviorClose": "OK",
+         "duration": 4348,
+         "remoteCloseCode": 1000,
+         "reportfile": "diffcheck_case_12_1_14.json"
+      },
+      "12.1.15": {
+         "behavior": "OK",
+         "behaviorClose": "OK",
+         "duration": 7813,
+         "remoteCloseCode": 1000,
+         "reportfile": "diffcheck_case_12_1_15.json"
+      },
+      "12.1.16": {
+         "behavior": "OK",
+         "behaviorClose": "OK",
+         "duration": 6483,
+         "remoteCloseCode": 1000,
+         "reportfile": "diffcheck_case_12_1_16.json"
+      },
+      "12.1.17": {
+         "behavior": "OK",
+         "behaviorClose": "OK",
+         "duration": 6354,
+         "remoteCloseCode": 1000,
+         "reportfile": "diffcheck_case_12_1_17.json"
+      },
+      "12.1.18": {
+         "behavior": "OK",
+         "behaviorClose": "OK",
+         "duration": 5574,
+         "remoteCloseCode": 1000,
+         "reportfile": "diffcheck_case_12_1_18.json"
+      },
+      "12.1.2": {
+         "behavior": "OK",
+         "behaviorClose": "OK",
+         "duration": 2154,
+         "remoteCloseCode": 1000,
+         "reportfile": "diffcheck_case_12_1_2.json"
+      },
+      "12.1.3": {
+         "behavior": "OK",
+         "behaviorClose": "OK",
+         "duration": 1710,
+         "remoteCloseCode": 1000,
+         "reportfile": "diffcheck_case_12_1_3.json"
+      },
+      "12.1.4": {
+         "behavior": "OK",
+         "behaviorClose": "OK",
+         "duration": 1890,
+         "remoteCloseCode": 1000,
+         "reportfile": "diffcheck_case_12_1_4.json"
+      },
+      "12.1.5": {
+         "behavior": "OK",
+         "behaviorClose": "OK",
+         "duration": 1222,
+         "remoteCloseCode": 1000,
+         "reportfile": "diffcheck_case_12_1_5.json"
+      },
+      "12.1.6": {
+         "behavior": "OK",
+         "behaviorClose": "OK",
+         "duration": 3017,
+         "remoteCloseCode": 1000,
+         "reportfile": "diffcheck_case_12_1_6.json"
+      },
+      "12.1.7": {
+         "behavior": "OK",
+         "behaviorClose": "OK",
+         "duration": 2497,
+         "remoteCloseCode": 1000,
+         "reportfile": "diffcheck_case_12_1_7.json"
+      },
+      "12.1.8": {
+         "behavior": "OK",
+         "behaviorClose": "OK",
+         "duration": 4046,
+         "remoteCloseCode": 1000,
+         "reportfile": "diffcheck_case_12_1_8.json"
+      },
+      "12.1.9": {
+         "behavior": "OK",
+         "behaviorClose": "OK",
+         "duration": 4175,
+         "remoteCloseCode": 1000,
+         "reportfile": "diffcheck_case_12_1_9.json"
+      },
+      "12.2.1": {
+         "behavior": "OK",
+         "behaviorClose": "OK",
+         "duration": 1452,
+         "remoteCloseCode": 1000,
+         "reportfile": "diffcheck_case_12_2_1.json"
+      },
+      "12.2.10": {
+         "behavior": "OK",
+         "behaviorClose": "OK",
+         "duration": 16862,
+         "remoteCloseCode": 1000,
+         "reportfile": "diffcheck_case_12_2_10.json"
+      },
+      "12.2.11": {
+         "behavior": "OK",
+         "behaviorClose": "OK",
+         "duration": 2885,
+         "remoteCloseCode": 1000,
+         "reportfile": "diffcheck_case_12_2_11.json"
+      },
+      "12.2.12": {
+         "behavior": "OK",
+         "behaviorClose": "OK",
+         "duration": 4116,
+         "remoteCloseCode": 1000,
+         "reportfile": "diffcheck_case_12_2_12.json"
+      },
+      "12.2.13": {
+         "behavior": "OK",
+         "behaviorClose": "OK",
+         "duration": 6981,
+         "remoteCloseCode": 1000,
+         "reportfile": "diffcheck_case_12_2_13.json"
+      },
+      "12.2.14": {
+         "behavior": "OK",
+         "behaviorClose": "OK",
+         "duration": 12479,
+         "remoteCloseCode": 1000,
+         "reportfile": "diffcheck_case_12_2_14.json"
+      },
+      "12.2.15": {
+         "behavior": "OK",
+         "behaviorClose": "OK",
+         "duration": 23219,
+         "remoteCloseCode": 1000,
+         "reportfile": "diffcheck_case_12_2_15.json"
+      },
+      "12.2.16": {
+         "behavior": "OK",
+         "behaviorClose": "OK",
+         "duration": 18334,
+         "remoteCloseCode": 1000,
+         "reportfile": "diffcheck_case_12_2_16.json"
+      },
+      "12.2.17": {
+         "behavior": "OK",
+         "behaviorClose": "OK",
+         "duration": 16997,
+         "remoteCloseCode": 1000,
+         "reportfile": "diffcheck_case_12_2_17.json"
+      },
+      "12.2.18": {
+         "behavior": "OK",
+         "behaviorClose": "OK",
+         "duration": 16114,
+         "remoteCloseCode": 1000,
+         "reportfile": "diffcheck_case_12_2_18.json"
+      },
+      "12.2.2": {
+         "behavior": "OK",
+         "behaviorClose": "OK",
+         "duration": 1409,
+         "remoteCloseCode": 1000,
+         "reportfile": "diffcheck_case_12_2_2.json"
+      },
+      "12.2.3": {
+         "behavior": "OK",
+         "behaviorClose": "OK",
+         "duration": 1632,
+         "remoteCloseCode": 1000,
+         "reportfile": "diffcheck_case_12_2_3.json"
+      },
+      "12.2.4": {
+         "behavior": "OK",
+         "behaviorClose": "OK",
+         "duration": 1620,
+         "remoteCloseCode": 1000,
+         "reportfile": "diffcheck_case_12_2_4.json"
+      },
+      "12.2.5": {
+         "behavior": "OK",
+         "behaviorClose": "OK",
+         "duration": 2115,
+         "remoteCloseCode": 1000,
+         "reportfile": "diffcheck_case_12_2_5.json"
+      },
+      "12.2.6": {
+         "behavior": "OK",
+         "behaviorClose": "OK",
+         "duration": 2622,
+         "remoteCloseCode": 1000,
+         "reportfile": "diffcheck_case_12_2_6.json"
+      },
+      "12.2.7": {
+         "behavior": "OK",
+         "behaviorClose": "OK",
+         "duration": 3477,
+         "remoteCloseCode": 1000,
+         "reportfile": "diffcheck_case_12_2_7.json"
+      },
+      "12.2.8": {
+         "behavior": "OK",
+         "behaviorClose": "OK",
+         "duration": 5771,
+         "remoteCloseCode": 1000,
+         "reportfile": "diffcheck_case_12_2_8.json"
+      },
+      "12.2.9": {
+         "behavior": "OK",
+         "behaviorClose": "OK",
+         "duration": 9633,
+         "remoteCloseCode": 1000,
+         "reportfile": "diffcheck_case_12_2_9.json"
+      },
+      "12.3.1": {
+         "behavior": "OK",
+         "behaviorClose": "OK",
+         "duration": 1222,
+         "remoteCloseCode": 1000,
+         "reportfile": "diffcheck_case_12_3_1.json"
+      },
+      "12.3.10": {
+         "behavior": "OK",
+         "behaviorClose": "OK",
+         "duration": 22944,
+         "remoteCloseCode": 1000,
+         "reportfile": "diffcheck_case_12_3_10.json"
+      },
+      "12.3.11": {
+         "behavior": "OK",
+         "behaviorClose": "OK",
+         "duration": 3531,
+         "remoteCloseCode": 1000,
+         "reportfile": "diffcheck_case_12_3_11.json"
+      },
+      "12.3.12": {
+         "behavior": "OK",
+         "behaviorClose": "OK",
+         "duration": 5495,
+         "remoteCloseCode": 1000,
+         "reportfile": "diffcheck_case_12_3_12.json"
+      },
+      "12.3.13": {
+         "behavior": "OK",
+         "behaviorClose": "OK",
+         "duration": 9551,
+         "remoteCloseCode": 1000,
+         "reportfile": "diffcheck_case_12_3_13.json"
+      },
+      "12.3.14": {
+         "behavior": "OK",
+         "behaviorClose": "OK",
+         "duration": 16745,
+         "remoteCloseCode": 1000,
+         "reportfile": "diffcheck_case_12_3_14.json"
+      },
+      "12.3.15": {
+         "behavior": "OK",
+         "behaviorClose": "OK",
+         "duration": 28931,
+         "remoteCloseCode": 1000,
+         "reportfile": "diffcheck_case_12_3_15.json"
+      },
+      "12.3.16": {
+         "behavior": "OK",
+         "behaviorClose": "OK",
+         "duration": 26193,
+         "remoteCloseCode": 1000,
+         "reportfile": "diffcheck_case_12_3_16.json"
+      },
+      "12.3.17": {
+         "behavior": "OK",
+         "behaviorClose": "OK",
+         "duration": 24709,
+         "remoteCloseCode": 1000,
+         "reportfile": "diffcheck_case_12_3_17.json"
+      },
+      "12.3.18": {
+         "behavior": "OK",
+         "behaviorClose": "OK",
+         "duration": 24070,
+         "remoteCloseCode": 1000,
+         "reportfile": "diffcheck_case_12_3_18.json"
+      },
+      "12.3.2": {
+         "behavior": "OK",
+         "behaviorClose": "OK",
+         "duration": 1305,
+         "remoteCloseCode": 1000,
+         "reportfile": "diffcheck_case_12_3_2.json"
+      },
+      "12.3.3": {
+         "behavior": "OK",
+         "behaviorClose": "OK",
+         "duration": 1315,
+         "remoteCloseCode": 1000,
+         "reportfile": "diffcheck_case_12_3_3.json"
+      },
+      "12.3.4": {
+         "behavior": "OK",
+         "behaviorClose": "OK",
+         "duration": 1483,
+         "remoteCloseCode": 1000,
+         "reportfile": "diffcheck_case_12_3_4.json"
+      },
+      "12.3.5": {
+         "behavior": "OK",
+         "behaviorClose": "OK",
+         "duration": 2426,
+         "remoteCloseCode": 1000,
+         "reportfile": "diffcheck_case_12_3_5.json"
+      },
+      "12.3.6": {
+         "behavior": "OK",
+         "behaviorClose": "OK",
+         "duration": 2767,
+         "remoteCloseCode": 1000,
+         "reportfile": "diffcheck_case_12_3_6.json"
+      },
+      "12.3.7": {
+         "behavior": "OK",
+         "behaviorClose": "OK",
+         "duration": 4393,
+         "remoteCloseCode": 1000,
+         "reportfile": "diffcheck_case_12_3_7.json"
+      },
+      "12.3.8": {
+         "behavior": "OK",
+         "behaviorClose": "OK",
+         "duration": 7178,
+         "remoteCloseCode": 1000,
+         "reportfile": "diffcheck_case_12_3_8.json"
+      },
+      "12.3.9": {
+         "behavior": "OK",
+         "behaviorClose": "OK",
+         "duration": 12087,
+         "remoteCloseCode": 1000,
+         "reportfile": "diffcheck_case_12_3_9.json"
+      },
+      "12.4.1": {
+         "behavior": "OK",
+         "behaviorClose": "OK",
+         "duration": 2091,
+         "remoteCloseCode": 1000,
+         "reportfile": "diffcheck_case_12_4_1.json"
+      },
+      "12.4.10": {
+         "behavior": "OK",
+         "behaviorClose": "OK",
+         "duration": 7357,
+         "remoteCloseCode": 1000,
+         "reportfile": "diffcheck_case_12_4_10.json"
+      },
+      "12.4.11": {
+         "behavior": "OK",
+         "behaviorClose": "OK",
+         "duration": 2779,
+         "remoteCloseCode": 1000,
+         "reportfile": "diffcheck_case_12_4_11.json"
+      },
+      "12.4.12": {
+         "behavior": "OK",
+         "behaviorClose": "OK",
+         "duration": 3234,
+         "remoteCloseCode": 1000,
+         "reportfile": "diffcheck_case_12_4_12.json"
+      },
+      "12.4.13": {
+         "behavior": "OK",
+         "behaviorClose": "OK",
+         "duration": 3903,
+         "remoteCloseCode": 1000,
+         "reportfile": "diffcheck_case_12_4_13.json"
+      },
+      "12.4.14": {
+         "behavior": "OK",
+         "behaviorClose": "OK",
+         "duration": 5348,
+         "remoteCloseCode": 1000,
+         "reportfile": "diffcheck_case_12_4_14.json"
+      },
+      "12.4.15": {
+         "behavior": "OK",
+         "behaviorClose": "OK",
+         "duration": 7442,
+         "remoteCloseCode": 1000,
+         "reportfile": "diffcheck_case_12_4_15.json"
+      },
+      "12.4.16": {
+         "behavior": "OK",
+         "behaviorClose": "OK",
+         "duration": 6798,
+         "remoteCloseCode": 1000,
+         "reportfile": "diffcheck_case_12_4_16.json"
+      },
+      "12.4.17": {
+         "behavior": "OK",
+         "behaviorClose": "OK",
+         "duration": 6811,
+         "remoteCloseCode": 1000,
+         "reportfile": "diffcheck_case_12_4_17.json"
+      },
+      "12.4.18": {
+         "behavior": "OK",
+         "behaviorClose": "OK",
+         "duration": 6877,
+         "remoteCloseCode": 1000,
+         "reportfile": "diffcheck_case_12_4_18.json"
+      },
+      "12.4.2": {
+         "behavior": "OK",
+         "behaviorClose": "OK",
+         "duration": 2295,
+         "remoteCloseCode": 1000,
+         "reportfile": "diffcheck_case_12_4_2.json"
+      },
+      "12.4.3": {
+         "behavior": "OK",
+         "behaviorClose": "OK",
+         "duration": 2229,
+         "remoteCloseCode": 1000,
+         "reportfile": "diffcheck_case_12_4_3.json"
+      },
+      "12.4.4": {
+         "behavior": "OK",
+         "behaviorClose": "OK",
+         "duration": 2285,
+         "remoteCloseCode": 1000,
+         "reportfile": "diffcheck_case_12_4_4.json"
+      },
+      "12.4.5": {
+         "behavior": "OK",
+         "behaviorClose": "OK",
+         "duration": 2344,
+         "remoteCloseCode": 1000,
+         "reportfile": "diffcheck_case_12_4_5.json"
+      },
+      "12.4.6": {
+         "behavior": "OK",
+         "behaviorClose": "OK",
+         "duration": 2483,
+         "remoteCloseCode": 1000,
+         "reportfile": "diffcheck_case_12_4_6.json"
+      },
+      "12.4.7": {
+         "behavior": "OK",
+         "behaviorClose": "OK",
+         "duration": 2277,
+         "remoteCloseCode": 1000,
+         "reportfile": "diffcheck_case_12_4_7.json"
+      },
+      "12.4.8": {
+         "behavior": "OK",
+         "behaviorClose": "OK",
+         "duration": 3800,
+         "remoteCloseCode": 1000,
+         "reportfile": "diffcheck_case_12_4_8.json"
+      },
+      "12.4.9": {
+         "behavior": "OK",
+         "behaviorClose": "OK",
+         "duration": 5530,
+         "remoteCloseCode": 1000,
+         "reportfile": "diffcheck_case_12_4_9.json"
+      },
+      "12.5.1": {
+         "behavior": "OK",
+         "behaviorClose": "OK",
+         "duration": 1773,
+         "remoteCloseCode": 1000,
+         "reportfile": "diffcheck_case_12_5_1.json"
+      },
+      "12.5.10": {
+         "behavior": "OK",
+         "behaviorClose": "OK",
+         "duration": 13504,
+         "remoteCloseCode": 1000,
+         "reportfile": "diffcheck_case_12_5_10.json"
+      },
+      "12.5.11": {
+         "behavior": "OK",
+         "behaviorClose": "OK",
+         "duration": 2774,
+         "remoteCloseCode": 1000,
+         "reportfile": "diffcheck_case_12_5_11.json"
+      },
+      "12.5.12": {
+         "behavior": "OK",
+         "behaviorClose": "OK",
+         "duration": 3711,
+         "remoteCloseCode": 1000,
+         "reportfile": "diffcheck_case_12_5_12.json"
+      },
+      "12.5.13": {
+         "behavior": "OK",
+         "behaviorClose": "OK",
+         "duration": 5938,
+         "remoteCloseCode": 1000,
+         "reportfile": "diffcheck_case_12_5_13.json"
+      },
+      "12.5.14": {
+         "behavior": "OK",
+         "behaviorClose": "OK",
+         "duration": 9965,
+         "remoteCloseCode": 1000,
+         "reportfile": "diffcheck_case_12_5_14.json"
+      },
+      "12.5.15": {
+         "behavior": "OK",
+         "behaviorClose": "OK",
+         "duration": 18463,
+         "remoteCloseCode": 1000,
+         "reportfile": "diffcheck_case_12_5_15.json"
+      },
+      "12.5.16": {
+         "behavior": "OK",
+         "behaviorClose": "OK",
+         "duration": 14428,
+         "remoteCloseCode": 1000,
+         "reportfile": "diffcheck_case_12_5_16.json"
+      },
+      "12.5.17": {
+         "behavior": "OK",
+         "behaviorClose": "OK",
+         "duration": 14233,
+         "remoteCloseCode": 1000,
+         "reportfile": "diffcheck_case_12_5_17.json"
+      },
+      "12.5.18": {
+         "behavior": "OK",
+         "behaviorClose": "OK",
+         "duration": 13889,
+         "remoteCloseCode": 1000,
+         "reportfile": "diffcheck_case_12_5_18.json"
+      },
+      "12.5.2": {
+         "behavior": "OK",
+         "behaviorClose": "OK",
+         "duration": 1817,
+         "remoteCloseCode": 1000,
+         "reportfile": "diffcheck_case_12_5_2.json"
+      },
+      "12.5.3": {
+         "behavior": "OK",
+         "behaviorClose": "OK",
+         "duration": 1958,
+         "remoteCloseCode": 1000,
+         "reportfile": "diffcheck_case_12_5_3.json"
+      },
+      "12.5.4": {
+         "behavior": "OK",
+         "behaviorClose": "OK",
+         "duration": 2069,
+         "remoteCloseCode": 1000,
+         "reportfile": "diffcheck_case_12_5_4.json"
+      },
+      "12.5.5": {
+         "behavior": "OK",
+         "behaviorClose": "OK",
+         "duration": 2353,
+         "remoteCloseCode": 1000,
+         "reportfile": "diffcheck_case_12_5_5.json"
+      },
+      "12.5.6": {
+         "behavior": "OK",
+         "behaviorClose": "OK",
+         "duration": 2859,
+         "remoteCloseCode": 1000,
+         "reportfile": "diffcheck_case_12_5_6.json"
+      },
+      "12.5.7": {
+         "behavior": "OK",
+         "behaviorClose": "OK",
+         "duration": 3596,
+         "remoteCloseCode": 1000,
+         "reportfile": "diffcheck_case_12_5_7.json"
+      },
+      "12.5.8": {
+         "behavior": "OK",
+         "behaviorClose": "OK",
+         "duration": 5338,
+         "remoteCloseCode": 1000,
+         "reportfile": "diffcheck_case_12_5_8.json"
+      },
+      "12.5.9": {
+         "behavior": "OK",
+         "behaviorClose": "OK",
+         "duration": 8316,
+         "remoteCloseCode": 1000,
+         "reportfile": "diffcheck_case_12_5_9.json"
+      },
+      "13.1.1": {
+         "behavior": "OK",
+         "behaviorClose": "OK",
+         "duration": 1777,
+         "remoteCloseCode": 1000,
+         "reportfile": "diffcheck_case_13_1_1.json"
+      },
+      "13.1.10": {
+         "behavior": "OK",
+         "behaviorClose": "OK",
+         "duration": 7375,
+         "remoteCloseCode": 1000,
+         "reportfile": "diffcheck_case_13_1_10.json"
+      },
+      "13.1.11": {
+         "behavior": "OK",
+         "behaviorClose": "OK",
+         "duration": 2353,
+         "remoteCloseCode": 1000,
+         "reportfile": "diffcheck_case_13_1_11.json"
+      },
+      "13.1.12": {
+         "behavior": "OK",
+         "behaviorClose": "OK",
+         "duration": 2511,
+         "remoteCloseCode": 1000,
+         "reportfile": "diffcheck_case_13_1_12.json"
+      },
+      "13.1.13": {
+         "behavior": "OK",
+         "behaviorClose": "OK",
+         "duration": 3123,
+         "remoteCloseCode": 1000,
+         "reportfile": "diffcheck_case_13_1_13.json"
+      },
+      "13.1.14": {
+         "behavior": "OK",
+         "behaviorClose": "OK",
+         "duration": 4263,
+         "remoteCloseCode": 1000,
+         "reportfile": "diffcheck_case_13_1_14.json"
+      },
+      "13.1.15": {
+         "behavior": "OK",
+         "behaviorClose": "OK",
+         "duration": 8070,
+         "remoteCloseCode": 1000,
+         "reportfile": "diffcheck_case_13_1_15.json"
+      },
+      "13.1.16": {
+         "behavior": "OK",
+         "behaviorClose": "OK",
+         "duration": 5162,
+         "remoteCloseCode": 1000,
+         "reportfile": "diffcheck_case_13_1_16.json"
+      },
+      "13.1.17": {
+         "behavior": "OK",
+         "behaviorClose": "OK",
+         "duration": 5238,
+         "remoteCloseCode": 1000,
+         "reportfile": "diffcheck_case_13_1_17.json"
+      },
+      "13.1.18": {
+         "behavior": "OK",
+         "behaviorClose": "OK",
+         "duration": 5149,
+         "remoteCloseCode": 1000,
+         "reportfile": "diffcheck_case_13_1_18.json"
+      },
+      "13.1.2": {
+         "behavior": "OK",
+         "behaviorClose": "OK",
+         "duration": 1782,
+         "remoteCloseCode": 1000,
+         "reportfile": "diffcheck_case_13_1_2.json"
+      },
+      "13.1.3": {
+         "behavior": "OK",
+         "behaviorClose": "OK",
+         "duration": 1938,
+         "remoteCloseCode": 1000,
+         "reportfile": "diffcheck_case_13_1_3.json"
+      },
+      "13.1.4": {
+         "behavior": "OK",
+         "behaviorClose": "OK",
+         "duration": 1819,
+         "remoteCloseCode": 1000,
+         "reportfile": "diffcheck_case_13_1_4.json"
+      },
+      "13.1.5": {
+         "behavior": "OK",
+         "behaviorClose": "OK",
+         "duration": 1883,
+         "remoteCloseCode": 1000,
+         "reportfile": "diffcheck_case_13_1_5.json"
+      },
+      "13.1.6": {
+         "behavior": "OK",
+         "behaviorClose": "OK",
+         "duration": 2116,
+         "remoteCloseCode": 1000,
+         "reportfile": "diffcheck_case_13_1_6.json"
+      },
+      "13.1.7": {
+         "behavior": "OK",
+         "behaviorClose": "OK",
+         "duration": 2224,
+         "remoteCloseCode": 1000,
+         "reportfile": "diffcheck_case_13_1_7.json"
+      },
+      "13.1.8": {
+         "behavior": "OK",
+         "behaviorClose": "OK",
+         "duration": 3048,
+         "remoteCloseCode": 1000,
+         "reportfile": "diffcheck_case_13_1_8.json"
+      },
+      "13.1.9": {
+         "behavior": "OK",
+         "behaviorClose": "OK",
+         "duration": 3983,
+         "remoteCloseCode": 1000,
+         "reportfile": "diffcheck_case_13_1_9.json"
+      },
+      "13.2.1": {
+         "behavior": "OK",
+         "behaviorClose": "OK",
+         "duration": 1644,
+         "remoteCloseCode": 1000,
+         "reportfile": "diffcheck_case_13_2_1.json"
+      },
+      "13.2.10": {
+         "behavior": "OK",
+         "behaviorClose": "OK",
+         "duration": 6487,
+         "remoteCloseCode": 1000,
+         "reportfile": "diffcheck_case_13_2_10.json"
+      },
+      "13.2.11": {
+         "behavior": "OK",
+         "behaviorClose": "OK",
+         "duration": 1826,
+         "remoteCloseCode": 1000,
+         "reportfile": "diffcheck_case_13_2_11.json"
+      },
+      "13.2.12": {
+         "behavior": "OK",
+         "behaviorClose": "OK",
+         "duration": 2286,
+         "remoteCloseCode": 1000,
+         "reportfile": "diffcheck_case_13_2_12.json"
+      },
+      "13.2.13": {
+         "behavior": "OK",
+         "behaviorClose": "OK",
+         "duration": 3031,
+         "remoteCloseCode": 1000,
+         "reportfile": "diffcheck_case_13_2_13.json"
+      },
+      "13.2.14": {
+         "behavior": "OK",
+         "behaviorClose": "OK",
+         "duration": 4319,
+         "remoteCloseCode": 1000,
+         "reportfile": "diffcheck_case_13_2_14.json"
+      },
+      "13.2.15": {
+         "behavior": "OK",
+         "behaviorClose": "OK",
+         "duration": 6634,
+         "remoteCloseCode": 1000,
+         "reportfile": "diffcheck_case_13_2_15.json"
+      },
+      "13.2.16": {
+         "behavior": "OK",
+         "behaviorClose": "OK",
+         "duration": 6443,
+         "remoteCloseCode": 1000,
+         "reportfile": "diffcheck_case_13_2_16.json"
+      },
+      "13.2.17": {
+         "behavior": "OK",
+         "behaviorClose": "OK",
+         "duration": 6237,
+         "remoteCloseCode": 1000,
+         "reportfile": "diffcheck_case_13_2_17.json"
+      },
+      "13.2.18": {
+         "behavior": "OK",
+         "behaviorClose": "OK",
+         "duration": 6221,
+         "remoteCloseCode": 1000,
+         "reportfile": "diffcheck_case_13_2_18.json"
+      },
+      "13.2.2": {
+         "behavior": "OK",
+         "behaviorClose": "OK",
+         "duration": 1547,
+         "remoteCloseCode": 1000,
+         "reportfile": "diffcheck_case_13_2_2.json"
+      },
+      "13.2.3": {
+         "behavior": "OK",
+         "behaviorClose": "OK",
+         "duration": 1553,
+         "remoteCloseCode": 1000,
+         "reportfile": "diffcheck_case_13_2_3.json"
+      },
+      "13.2.4": {
+         "behavior": "OK",
+         "behaviorClose": "OK",
+         "duration": 1646,
+         "remoteCloseCode": 1000,
+         "reportfile": "diffcheck_case_13_2_4.json"
+      },
+      "13.2.5": {
+         "behavior": "OK",
+         "behaviorClose": "OK",
+         "duration": 1684,
+         "remoteCloseCode": 1000,
+         "reportfile": "diffcheck_case_13_2_5.json"
+      },
+      "13.2.6": {
+         "behavior": "OK",
+         "behaviorClose": "OK",
+         "duration": 1783,
+         "remoteCloseCode": 1000,
+         "reportfile": "diffcheck_case_13_2_6.json"
+      },
+      "13.2.7": {
+         "behavior": "OK",
+         "behaviorClose": "OK",
+         "duration": 2121,
+         "remoteCloseCode": 1000,
+         "reportfile": "diffcheck_case_13_2_7.json"
+      },
+      "13.2.8": {
+         "behavior": "OK",
+         "behaviorClose": "OK",
+         "duration": 2510,
+         "remoteCloseCode": 1000,
+         "reportfile": "diffcheck_case_13_2_8.json"
+      },
+      "13.2.9": {
+         "behavior": "OK",
+         "behaviorClose": "OK",
+         "duration": 4616,
+         "remoteCloseCode": 1000,
+         "reportfile": "diffcheck_case_13_2_9.json"
+      },
+      "13.3.1": {
+         "behavior": "OK",
+         "behaviorClose": "OK",
+         "duration": 1978,
+         "remoteCloseCode": 1000,
+         "reportfile": "diffcheck_case_13_3_1.json"
+      },
+      "13.3.10": {
+         "behavior": "OK",
+         "behaviorClose": "OK",
+         "duration": 9001,
+         "remoteCloseCode": 1000,
+         "reportfile": "diffcheck_case_13_3_10.json"
+      },
+      "13.3.11": {
+         "behavior": "OK",
+         "behaviorClose": "OK",
+         "duration": 2103,
+         "remoteCloseCode": 1000,
+         "reportfile": "diffcheck_case_13_3_11.json"
+      },
+      "13.3.12": {
+         "behavior": "OK",
+         "behaviorClose": "OK",
+         "duration": 2672,
+         "remoteCloseCode": 1000,
+         "reportfile": "diffcheck_case_13_3_12.json"
+      },
+      "13.3.13": {
+         "behavior": "OK",
+         "behaviorClose": "OK",
+         "duration": 3677,
+         "remoteCloseCode": 1000,
+         "reportfile": "diffcheck_case_13_3_13.json"
+      },
+      "13.3.14": {
+         "behavior": "OK",
+         "behaviorClose": "OK",
+         "duration": 5602,
+         "remoteCloseCode": 1000,
+         "reportfile": "diffcheck_case_13_3_14.json"
+      },
+      "13.3.15": {
+         "behavior": "OK",
+         "behaviorClose": "OK",
+         "duration": 9166,
+         "remoteCloseCode": 1000,
+         "reportfile": "diffcheck_case_13_3_15.json"
+      },
+      "13.3.16": {
+         "behavior": "OK",
+         "behaviorClose": "OK",
+         "duration": 8996,
+         "remoteCloseCode": 1000,
+         "reportfile": "diffcheck_case_13_3_16.json"
+      },
+      "13.3.17": {
+         "behavior": "OK",
+         "behaviorClose": "OK",
+         "duration": 8940,
+         "remoteCloseCode": 1000,
+         "reportfile": "diffcheck_case_13_3_17.json"
+      },
+      "13.3.18": {
+         "behavior": "OK",
+         "behaviorClose": "OK",
+         "duration": 9322,
+         "remoteCloseCode": 1000,
+         "reportfile": "diffcheck_case_13_3_18.json"
+      },
+      "13.3.2": {
+         "behavior": "OK",
+         "behaviorClose": "OK",
+         "duration": 2300,
+         "remoteCloseCode": 1000,
+         "reportfile": "diffcheck_case_13_3_2.json"
+      },
+      "13.3.3": {
+         "behavior": "OK",
+         "behaviorClose": "OK",
+         "duration": 2059,
+         "remoteCloseCode": 1000,
+         "reportfile": "diffcheck_case_13_3_3.json"
+      },
+      "13.3.4": {
+         "behavior": "OK",
+         "behaviorClose": "OK",
+         "duration": 2215,
+         "remoteCloseCode": 1000,
+         "reportfile": "diffcheck_case_13_3_4.json"
+      },
+      "13.3.5": {
+         "behavior": "OK",
+         "behaviorClose": "OK",
+         "duration": 2221,
+         "remoteCloseCode": 1000,
+         "reportfile": "diffcheck_case_13_3_5.json"
+      },
+      "13.3.6": {
+         "behavior": "OK",
+         "behaviorClose": "OK",
+         "duration": 2560,
+         "remoteCloseCode": 1000,
+         "reportfile": "diffcheck_case_13_3_6.json"
+      },
+      "13.3.7": {
+         "behavior": "OK",
+         "behaviorClose": "OK",
+         "duration": 2937,
+         "remoteCloseCode": 1000,
+         "reportfile": "diffcheck_case_13_3_7.json"
+      },
+      "13.3.8": {
+         "behavior": "OK",
+         "behaviorClose": "OK",
+         "duration": 4087,
+         "remoteCloseCode": 1000,
+         "reportfile": "diffcheck_case_13_3_8.json"
+      },
+      "13.3.9": {
+         "behavior": "OK",
+         "behaviorClose": "OK",
+         "duration": 5694,
+         "remoteCloseCode": 1000,
+         "reportfile": "diffcheck_case_13_3_9.json"
+      },
+      "13.4.1": {
+         "behavior": "OK",
+         "behaviorClose": "OK",
+         "duration": 2062,
+         "remoteCloseCode": 1000,
+         "reportfile": "diffcheck_case_13_4_1.json"
+      },
+      "13.4.10": {
+         "behavior": "OK",
+         "behaviorClose": "OK",
+         "duration": 7298,
+         "remoteCloseCode": 1000,
+         "reportfile": "diffcheck_case_13_4_10.json"
+      },
+      "13.4.11": {
+         "behavior": "OK",
+         "behaviorClose": "OK",
+         "duration": 3857,
+         "remoteCloseCode": 1000,
+         "reportfile": "diffcheck_case_13_4_11.json"
+      },
+      "13.4.12": {
+         "behavior": "OK",
+         "behaviorClose": "OK",
+         "duration": 3578,
+         "remoteCloseCode": 1000,
+         "reportfile": "diffcheck_case_13_4_12.json"
+      },
+      "13.4.13": {
+         "behavior": "OK",
+         "behaviorClose": "OK",
+         "duration": 3821,
+         "remoteCloseCode": 1000,
+         "reportfile": "diffcheck_case_13_4_13.json"
+      },
+      "13.4.14": {
+         "behavior": "OK",
+         "behaviorClose": "OK",
+         "duration": 4820,
+         "remoteCloseCode": 1000,
+         "reportfile": "diffcheck_case_13_4_14.json"
+      },
+      "13.4.15": {
+         "behavior": "OK",
+         "behaviorClose": "OK",
+         "duration": 7000,
+         "remoteCloseCode": 1000,
+         "reportfile": "diffcheck_case_13_4_15.json"
+      },
+      "13.4.16": {
+         "behavior": "OK",
+         "behaviorClose": "OK",
+         "duration": 5978,
+         "remoteCloseCode": 1000,
+         "reportfile": "diffcheck_case_13_4_16.json"
+      },
+      "13.4.17": {
+         "behavior": "OK",
+         "behaviorClose": "OK",
+         "duration": 5535,
+         "remoteCloseCode": 1000,
+         "reportfile": "diffcheck_case_13_4_17.json"
+      },
+      "13.4.18": {
+         "behavior": "OK",
+         "behaviorClose": "OK",
+         "duration": 5608,
+         "remoteCloseCode": 1000,
+         "reportfile": "diffcheck_case_13_4_18.json"
+      },
+      "13.4.2": {
+         "behavior": "OK",
+         "behaviorClose": "OK",
+         "duration": 2088,
+         "remoteCloseCode": 1000,
+         "reportfile": "diffcheck_case_13_4_2.json"
+      },
+      "13.4.3": {
+         "behavior": "OK",
+         "behaviorClose": "OK",
+         "duration": 1921,
+         "remoteCloseCode": 1000,
+         "reportfile": "diffcheck_case_13_4_3.json"
+      },
+      "13.4.4": {
+         "behavior": "OK",
+         "behaviorClose": "OK",
+         "duration": 1876,
+         "remoteCloseCode": 1000,
+         "reportfile": "diffcheck_case_13_4_4.json"
+      },
+      "13.4.5": {
+         "behavior": "OK",
+         "behaviorClose": "OK",
+         "duration": 2127,
+         "remoteCloseCode": 1000,
+         "reportfile": "diffcheck_case_13_4_5.json"
+      },
+      "13.4.6": {
+         "behavior": "OK",
+         "behaviorClose": "OK",
+         "duration": 2437,
+         "remoteCloseCode": 1000,
+         "reportfile": "diffcheck_case_13_4_6.json"
+      },
+      "13.4.7": {
+         "behavior": "OK",
+         "behaviorClose": "OK",
+         "duration": 2746,
+         "remoteCloseCode": 1000,
+         "reportfile": "diffcheck_case_13_4_7.json"
+      },
+      "13.4.8": {
+         "behavior": "OK",
+         "behaviorClose": "OK",
+         "duration": 3204,
+         "remoteCloseCode": 1000,
+         "reportfile": "diffcheck_case_13_4_8.json"
+      },
+      "13.4.9": {
+         "behavior": "OK",
+         "behaviorClose": "OK",
+         "duration": 4709,
+         "remoteCloseCode": 1000,
+         "reportfile": "diffcheck_case_13_4_9.json"
+      },
+      "13.5.1": {
+         "behavior": "OK",
+         "behaviorClose": "OK",
+         "duration": 1746,
+         "remoteCloseCode": 1000,
+         "reportfile": "diffcheck_case_13_5_1.json"
+      },
+      "13.5.10": {
+         "behavior": "OK",
+         "behaviorClose": "OK",
+         "duration": 9370,
+         "remoteCloseCode": 1000,
+         "reportfile": "diffcheck_case_13_5_10.json"
+      },
+      "13.5.11": {
+         "behavior": "OK",
+         "behaviorClose": "OK",
+         "duration": 2236,
+         "remoteCloseCode": 1000,
+         "reportfile": "diffcheck_case_13_5_11.json"
+      },
+      "13.5.12": {
+         "behavior": "OK",
+         "behaviorClose": "OK",
+         "duration": 2631,
+         "remoteCloseCode": 1000,
+         "reportfile": "diffcheck_case_13_5_12.json"
+      },
+      "13.5.13": {
+         "behavior": "OK",
+         "behaviorClose": "OK",
+         "duration": 3741,
+         "remoteCloseCode": 1000,
+         "reportfile": "diffcheck_case_13_5_13.json"
+      },
+      "13.5.14": {
+         "behavior": "OK",
+         "behaviorClose": "OK",
+         "duration": 5647,
+         "remoteCloseCode": 1000,
+         "reportfile": "diffcheck_case_13_5_14.json"
+      },
+      "13.5.15": {
+         "behavior": "OK",
+         "behaviorClose": "OK",
+         "duration": 9290,
+         "remoteCloseCode": 1000,
+         "reportfile": "diffcheck_case_13_5_15.json"
+      },
+      "13.5.16": {
+         "behavior": "OK",
+         "behaviorClose": "OK",
+         "duration": 9126,
+         "remoteCloseCode": 1000,
+         "reportfile": "diffcheck_case_13_5_16.json"
+      },
+      "13.5.17": {
+         "behavior": "OK",
+         "behaviorClose": "OK",
+         "duration": 9042,
+         "remoteCloseCode": 1000,
+         "reportfile": "diffcheck_case_13_5_17.json"
+      },
+      "13.5.18": {
+         "behavior": "OK",
+         "behaviorClose": "OK",
+         "duration": 8801,
+         "remoteCloseCode": 1000,
+         "reportfile": "diffcheck_case_13_5_18.json"
+      },
+      "13.5.2": {
+         "behavior": "OK",
+         "behaviorClose": "OK",
+         "duration": 1733,
+         "remoteCloseCode": 1000,
+         "reportfile": "diffcheck_case_13_5_2.json"
+      },
+      "13.5.3": {
+         "behavior": "OK",
+         "behaviorClose": "OK",
+         "duration": 1690,
+         "remoteCloseCode": 1000,
+         "reportfile": "diffcheck_case_13_5_3.json"
+      },
+      "13.5.4": {
+         "behavior": "OK",
+         "behaviorClose": "OK",
+         "duration": 1725,
+         "remoteCloseCode": 1000,
+         "reportfile": "diffcheck_case_13_5_4.json"
+      },
+      "13.5.5": {
+         "behavior": "OK",
+         "behaviorClose": "OK",
+         "duration": 1948,
+         "remoteCloseCode": 1000,
+         "reportfile": "diffcheck_case_13_5_5.json"
+      },
+      "13.5.6": {
+         "behavior": "OK",
+         "behaviorClose": "OK",
+         "duration": 2241,
+         "remoteCloseCode": 1000,
+         "reportfile": "diffcheck_case_13_5_6.json"
+      },
+      "13.5.7": {
+         "behavior": "OK",
+         "behaviorClose": "OK",
+         "duration": 2696,
+         "remoteCloseCode": 1000,
+         "reportfile": "diffcheck_case_13_5_7.json"
+      },
+      "13.5.8": {
+         "behavior": "OK",
+         "behaviorClose": "OK",
+         "duration": 4117,
+         "remoteCloseCode": 1000,
+         "reportfile": "diffcheck_case_13_5_8.json"
+      },
+      "13.5.9": {
+         "behavior": "OK",
+         "behaviorClose": "OK",
+         "duration": 5775,
+         "remoteCloseCode": 1000,
+         "reportfile": "diffcheck_case_13_5_9.json"
+      },
+      "13.6.1": {
+         "behavior": "OK",
+         "behaviorClose": "OK",
+         "duration": 1623,
+         "remoteCloseCode": 1000,
+         "reportfile": "diffcheck_case_13_6_1.json"
+      },
+      "13.6.10": {
+         "behavior": "OK",
+         "behaviorClose": "OK",
+         "duration": 5196,
+         "remoteCloseCode": 1000,
+         "reportfile": "diffcheck_case_13_6_10.json"
+      },
+      "13.6.11": {
+         "behavior": "OK",
+         "behaviorClose": "OK",
+         "duration": 1893,
+         "remoteCloseCode": 1000,
+         "reportfile": "diffcheck_case_13_6_11.json"
+      },
+      "13.6.12": {
+         "behavior": "OK",
+         "behaviorClose": "OK",
+         "duration": 2184,
+         "remoteCloseCode": 1000,
+         "reportfile": "diffcheck_case_13_6_12.json"
+      },
+      "13.6.13": {
+         "behavior": "OK",
+         "behaviorClose": "OK",
+         "duration": 3182,
+         "remoteCloseCode": 1000,
+         "reportfile": "diffcheck_case_13_6_13.json"
+      },
+      "13.6.14": {
+         "behavior": "OK",
+         "behaviorClose": "OK",
+         "duration": 4199,
+         "remoteCloseCode": 1000,
+         "reportfile": "diffcheck_case_13_6_14.json"
+      },
+      "13.6.15": {
+         "behavior": "OK",
+         "behaviorClose": "OK",
+         "duration": 6069,
+         "remoteCloseCode": 1000,
+         "reportfile": "diffcheck_case_13_6_15.json"
+      },
+      "13.6.16": {
+         "behavior": "OK",
+         "behaviorClose": "OK",
+         "duration": 6004,
+         "remoteCloseCode": 1000,
+         "reportfile": "diffcheck_case_13_6_16.json"
+      },
+      "13.6.17": {
+         "behavior": "OK",
+         "behaviorClose": "OK",
+         "duration": 5820,
+         "remoteCloseCode": 1000,
+         "reportfile": "diffcheck_case_13_6_17.json"
+      },
+      "13.6.18": {
+         "behavior": "OK",
+         "behaviorClose": "OK",
+         "duration": 5721,
+         "remoteCloseCode": 1000,
+         "reportfile": "diffcheck_case_13_6_18.json"
+      },
+      "13.6.2": {
+         "behavior": "OK",
+         "behaviorClose": "OK",
+         "duration": 1610,
+         "remoteCloseCode": 1000,
+         "reportfile": "diffcheck_case_13_6_2.json"
+      },
+      "13.6.3": {
+         "behavior": "OK",
+         "behaviorClose": "OK",
+         "duration": 1678,
+         "remoteCloseCode": 1000,
+         "reportfile": "diffcheck_case_13_6_3.json"
+      },
+      "13.6.4": {
+         "behavior": "OK",
+         "behaviorClose": "OK",
+         "duration": 1761,
+         "remoteCloseCode": 1000,
+         "reportfile": "diffcheck_case_13_6_4.json"
+      },
+      "13.6.5": {
+         "behavior": "OK",
+         "behaviorClose": "OK",
+         "duration": 1781,
+         "remoteCloseCode": 1000,
+         "reportfile": "diffcheck_case_13_6_5.json"
+      },
+      "13.6.6": {
+         "behavior": "OK",
+         "behaviorClose": "OK",
+         "duration": 1913,
+         "remoteCloseCode": 1000,
+         "reportfile": "diffcheck_case_13_6_6.json"
+      },
+      "13.6.7": {
+         "behavior": "OK",
+         "behaviorClose": "OK",
+         "duration": 2064,
+         "remoteCloseCode": 1000,
+         "reportfile": "diffcheck_case_13_6_7.json"
+      },
+      "13.6.8": {
+         "behavior": "OK",
+         "behaviorClose": "OK",
+         "duration": 2624,
+         "remoteCloseCode": 1000,
+         "reportfile": "diffcheck_case_13_6_8.json"
+      },
+      "13.6.9": {
+         "behavior": "OK",
+         "behaviorClose": "OK",
+         "duration": 3855,
+         "remoteCloseCode": 1000,
+         "reportfile": "diffcheck_case_13_6_9.json"
+      },
+      "13.7.1": {
+         "behavior": "OK",
+         "behaviorClose": "OK",
+         "duration": 1782,
+         "remoteCloseCode": 1000,
+         "reportfile": "diffcheck_case_13_7_1.json"
+      },
+      "13.7.10": {
+         "behavior": "OK",
+         "behaviorClose": "OK",
+         "duration": 10267,
+         "remoteCloseCode": 1000,
+         "reportfile": "diffcheck_case_13_7_10.json"
+      },
+      "13.7.11": {
+         "behavior": "OK",
+         "behaviorClose": "OK",
+         "duration": 2374,
+         "remoteCloseCode": 1000,
+         "reportfile": "diffcheck_case_13_7_11.json"
+      },
+      "13.7.12": {
+         "behavior": "OK",
+         "behaviorClose": "OK",
+         "duration": 3152,
+         "remoteCloseCode": 1000,
+         "reportfile": "diffcheck_case_13_7_12.json"
+      },
+      "13.7.13": {
+         "behavior": "OK",
+         "behaviorClose": "OK",
+         "duration": 4154,
+         "remoteCloseCode": 1000,
+         "reportfile": "diffcheck_case_13_7_13.json"
+      },
+      "13.7.14": {
+         "behavior": "OK",
+         "behaviorClose": "OK",
+         "duration": 6705,
+         "remoteCloseCode": 1000,
+         "reportfile": "diffcheck_case_13_7_14.json"
+      },
+      "13.7.15": {
+         "behavior": "OK",
+         "behaviorClose": "OK",
+         "duration": 11241,
+         "remoteCloseCode": 1000,
+         "reportfile": "diffcheck_case_13_7_15.json"
+      },
+      "13.7.16": {
+         "behavior": "OK",
+         "behaviorClose": "OK",
+         "duration": 10630,
+         "remoteCloseCode": 1000,
+         "reportfile": "diffcheck_case_13_7_16.json"
+      },
+      "13.7.17": {
+         "behavior": "OK",
+         "behaviorClose": "OK",
+         "duration": 9794,
+         "remoteCloseCode": 1000,
+         "reportfile": "diffcheck_case_13_7_17.json"
+      },
+      "13.7.18": {
+         "behavior": "OK",
+         "behaviorClose": "OK",
+         "duration": 8879,
+         "remoteCloseCode": 1000,
+         "reportfile": "diffcheck_case_13_7_18.json"
+      },
+      "13.7.2": {
+         "behavior": "OK",
+         "behaviorClose": "OK",
+         "duration": 1754,
+         "remoteCloseCode": 1000,
+         "reportfile": "diffcheck_case_13_7_2.json"
+      },
+      "13.7.3": {
+         "behavior": "OK",
+         "behaviorClose": "OK",
+         "duration": 1879,
+         "remoteCloseCode": 1000,
+         "reportfile": "diffcheck_case_13_7_3.json"
+      },
+      "13.7.4": {
+         "behavior": "OK",
+         "behaviorClose": "OK",
+         "duration": 2267,
+         "remoteCloseCode": 1000,
+         "reportfile": "diffcheck_case_13_7_4.json"
+      },
+      "13.7.5": {
+         "behavior": "OK",
+         "behaviorClose": "OK",
+         "duration": 2253,
+         "remoteCloseCode": 1000,
+         "reportfile": "diffcheck_case_13_7_5.json"
+      },
+      "13.7.6": {
+         "behavior": "OK",
+         "behaviorClose": "OK",
+         "duration": 2612,
+         "remoteCloseCode": 1000,
+         "reportfile": "diffcheck_case_13_7_6.json"
+      },
+      "13.7.7": {
+         "behavior": "OK",
+         "behaviorClose": "OK",
+         "duration": 3155,
+         "remoteCloseCode": 1000,
+         "reportfile": "diffcheck_case_13_7_7.json"
+      },
+      "13.7.8": {
+         "behavior": "OK",
+         "behaviorClose": "OK",
+         "duration": 4298,
+         "remoteCloseCode": 1000,
+         "reportfile": "diffcheck_case_13_7_8.json"
+      },
+      "13.7.9": {
+         "behavior": "OK",
+         "behaviorClose": "OK",
+         "duration": 6541,
+         "remoteCloseCode": 1000,
+         "reportfile": "diffcheck_case_13_7_9.json"
+      }
+   }
+}

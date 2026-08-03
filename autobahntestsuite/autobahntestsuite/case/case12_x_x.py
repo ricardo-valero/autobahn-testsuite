@@ -122,7 +122,7 @@ def init(self):
    self.payloadTXPtr = 0
 
    fn = str(importlib.resources.files("autobahntestsuite") / ("testdata/%s" % self.TESTDATA['file']))
-   self.testData = open(fn, b'rb').read()
+   self.testData = open(fn, 'rb').read()
    self.testDataLen = len(self.testData)
 
 
